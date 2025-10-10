@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg: 255 255 255;
+  --text: 15 23 42;
+  --muted: 100 116 139;
+  --accent: 99 102 241; /* indigo-500 */
+  --accent-light: 129 140 248; /* indigo-400 */
+}
+
+html.dark {
+  --bg: 7 12 20;
+  --text: 226 232 240;
+  --muted: 148 163 184;
+  --accent: 129 140 248;
+  --accent-light: 165 180 252;
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--text));
+}
+
+/* Subtle gradient background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60vh;
+  background: radial-gradient(ellipse at top, rgba(var(--accent), 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card {
+  @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200/60 dark:border-slate-800/60 transition-all duration-300;
+}
+
+.card:hover {
+  @apply shadow-xl border-slate-300/80 dark:border-slate-700/80;
+}
+
+.section-heading {
+  @apply text-3xl sm:text-4xl font-bold mb-8 bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent;
+}
+
+.text-accent {
+  color: rgb(var(--accent));
+}
+
+.bg-accent {
+  background-color: rgb(var(--accent));
+}
+
+.border-accent {
+  border-color: rgb(var(--accent));
+}
