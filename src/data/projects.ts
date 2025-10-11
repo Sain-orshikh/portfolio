@@ -8,7 +8,7 @@ export const projects: Project[] = [
     tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
     repo: '', // Add your GitHub link later
     demo: '',
-    image: '/assets/profile.jpg'
+    image: '/nyx.webp'
   },
   {
     id: 'proj-2',
