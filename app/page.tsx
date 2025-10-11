@@ -1,40 +1,72 @@
 'use client'
-import React from 'react'
-import Navbar from '../components/ui/Navbar'
-import Hero from '../sections/Hero'
+import React, { useEffect, useState } from 'react'
+import FixedSidebar from '../components/ui/FixedSidebar'
 import About from '../sections/About'
-import Skills from '../sections/Skills'
+import Experience from '../sections/Experience'
 import Projects from '../sections/Projects'
-import Contact from '../sections/Contact'
-import Footer from '../components/ui/Footer'
 
 export default function Home() {
+  const [activeSection, setActiveSection] = useState('about')
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -35% 0px',
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    }
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0) {
+          setActiveSection(entry.target.id)
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions)
+
+    // Small delay to ensure DOM is ready
+    setTimeout(() => {
+      const sections = document.querySelectorAll('section[id]')
+      sections.forEach((section) => observer.observe(section))
+    }, 100)
+
+    return () => {
+      const sections = document.querySelectorAll('section[id]')
+      sections.forEach((section) => observer.unobserve(section))
+    }
+  }, [])
+
+  const handleNavigate = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const yOffset = -100 // Offset for better positioning
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+      window.scrollTo({ top: y, behavior: 'smooth' })
+      setActiveSection(sectionId)
+    }
+  }
+
   return (
-    <>
-      <Navbar />
-      <main className="pt-20">
-        <section id="home" className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl">
-          <Hero/>
-        </section>
-        
-        <section id="about" className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl py-24 sm:py-32">
-          <About/>
-        </section>
-        
-        <section id="skills" className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl py-24 sm:py-32 bg-gradient-to-b from-transparent via-slate-50/50 to-transparent dark:via-slate-900/30">
-          <Skills/>
-        </section>
-        
-        <section id="projects" className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl py-24 sm:py-32">
-          <Projects/>
-        </section>
-        
-        <section id="contact" className="container mx-auto px-6 sm:px-8 lg:px-12 max-w-7xl py-24 sm:py-32">
-          <Contact/>
-        </section>
-        
-        <Footer/>
-      </main>
-    </>
+    <div className="min-h-screen">
+      <div className="lg:flex">
+        {/* Fixed Left Sidebar */}
+        <FixedSidebar activeSection={activeSection} onNavigate={handleNavigate} />
+
+        {/* Scrollable Right Content */}
+        <main className="lg:ml-[50%] lg:w-[50%] px-6 sm:px-12 py-16 lg:py-24 pt-24 lg:pt-24">
+          <About />
+          <Experience />
+          <Projects />
+
+          {/* Footer Text */}
+          <footer className="mt-24 pt-12 border-t border-slate-800/60">
+            <p className="text-sm text-slate-400 text-center">
+              Designed & built with <span className="text-red-500">♥</span> using Next.js, TypeScript & Tailwind CSS
+            </p>
+          </footer>
+        </main>
+      </div>
+    </div>
   )
 }

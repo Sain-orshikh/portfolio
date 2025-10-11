@@ -16,7 +16,7 @@ const Button: React.FC<Props> = ({ children, className = '', variant = 'solid', 
   return (
     <motion.button
       whileTap={{ scale: 0.97 }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.01 }}
       className={`${base} ${styles} ${className}`}
       {...rest}
     >

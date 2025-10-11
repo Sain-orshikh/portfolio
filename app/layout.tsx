@@ -1,18 +1,15 @@
 import './globals.css'
-import { ThemeProvider } from '../context/ThemeProvider'
 import React from 'react'
 
 export const metadata = {
-  title: 'Your Name — Frontend Developer',
-  description: 'Personal portfolio',
+  title: 'Sain-Orshikh Nyambayar',
+  description: 'High school student passionate about web development, building production-ready applications.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }

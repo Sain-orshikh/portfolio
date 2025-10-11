@@ -2,52 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-html { scroll-behavior: smooth; }
-
-:root {
-  --bg: 255 255 255;
-  --text: 15 23 42;
-  --muted: 100 116 139;
-  --accent: 99 102 241; /* indigo-500 */
-  --accent-light: 129 140 248; /* indigo-400 */
+html { 
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
-html.dark {
-  --bg: 7 12 20;
+:root {
+  --bg: 15 23 42;
   --text: 226 232 240;
   --muted: 148 163 184;
-  --accent: 129 140 248;
-  --accent-light: 165 180 252;
+  --accent: 94 234 212; /* teal-300 */
+  --accent-light: 153 246 228; /* teal-200 */
 }
 
 body {
-  background-color: rgb(var(--bg));
-  color: rgb(var(--text));
+  background-color: rgb(15 23 42);
+  color: rgb(226 232 240);
+  overflow-x: hidden;
 }
 
-/* Subtle gradient background */
+/* Subtle gradient background on left side */
 body::before {
   content: '';
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  height: 60vh;
-  background: radial-gradient(ellipse at top, rgba(var(--accent), 0.08) 0%, transparent 50%);
+  width: 50%;
+  height: 100vh;
+  background: radial-gradient(ellipse at center, rgba(94, 234, 212, 0.05) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
 }
 
-.card {
-  @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200/60 dark:border-slate-800/60 transition-all duration-300;
+@media (max-width: 1024px) {
+  body::before {
+    width: 100%;
+    height: 60vh;
+  }
 }
 
-.card:hover {
-  @apply shadow-xl border-slate-300/80 dark:border-slate-700/80;
-}
-
-.section-heading {
-  @apply text-3xl sm:text-4xl font-bold mb-8 bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent;
+/* Smooth scrolling for sections */
+section {
+  scroll-margin-top: 6rem;
 }
 
 .text-accent {
@@ -60,4 +56,22 @@ body::before {
 
 .border-accent {
   border-color: rgb(var(--accent));
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--bg));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--accent));
 }
