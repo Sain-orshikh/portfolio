@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 
 const Projects: React.FC = () => {
   return (
-    <section id="projects" className="mb-32 scroll-mt-24">
+    <section id="projects" className="mb-24 scroll-mt-24">
+  <h2 className="block lg:hidden text-[14px] font-bold tracking-widest uppercase text-white mb-8">Projects</h2>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -22,7 +23,7 @@ const Projects: React.FC = () => {
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className="group relative flex flex-col"
             >
-              <div className="relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm transition-all duration-500 hover:border-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/5 hover:-translate-y-1 hover:bg-slate-700/20 flex flex-col h-full">
+              <div className="relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm transition-all duration-500 hover:border-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/5 hover:bg-slate-700/20 flex flex-col h-full">
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-600/0 to-slate-700/0 group-hover:from-slate-600/10 group-hover:to-slate-700/10 transition-all duration-500 rounded-xl"></div>
                 
@@ -32,7 +33,7 @@ const Projects: React.FC = () => {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-60"></div>
                   </div>

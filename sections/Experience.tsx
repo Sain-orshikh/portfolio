@@ -5,7 +5,8 @@ import { ArrowUpRight } from 'lucide-react';
 
 const Experience: React.FC = () => {
   return (
-    <section id="experience" className="mb-32 scroll-mt-24">
+    <section id="experience" className="mb-24 scroll-mt-24">
+  <h2 className="block lg:hidden text-[14px] font-bold tracking-widest uppercase text-white mb-8">Experience</h2>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -26,7 +27,7 @@ const Experience: React.FC = () => {
                 href={exp.link || '#'}
                 target={exp.link ? '_blank' : undefined}
                 rel={exp.link ? 'noopener noreferrer' : undefined}
-                className="block relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm p-6 transition-all duration-500 hover:border-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/5 hover:-translate-y-1 hover:bg-white/20"
+                className="block relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm p-6 transition-all duration-500 hover:border-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/5 hover:bg-white/10"
               >
                 {/* Content */}
                 <div className="relative z-10">

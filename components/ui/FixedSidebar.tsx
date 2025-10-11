@@ -1,9 +1,6 @@
-'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Menu } from 'lucide-react';
 import SocialLinks from './SocialLinks';
-import MobileMenu from './MobileMenu';
 
 interface FixedSidebarProps {
   activeSection: string;
@@ -17,26 +14,16 @@ const navItems = [
 ];
 
 const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <>
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-30 bg-slate-900/90 backdrop-blur-xl border-b border-slate-800">
-        <div className="flex items-center justify-between px-6 py-4">
-          <div>
-            <h1 className="text-xl font-bold text-slate-100">
-              Sain Orshikh
-            </h1>
-            <p className="text-xs text-slate-400">High School Student • Developer</p>
-          </div>
-          <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="p-2 rounded-lg hover:bg-slate-800 transition-colors"
-            aria-label="Open menu"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
+      <div className="lg:hidden w-full mt-10">
+        <div className="flex flex-col items-start px-6 py-4 gap-2">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-2 text-slate-100">Sain-Orshikh.N</h1>
+          <h2 className="text-xl sm:text-2xl font-semibold text-slate-300 mb-3">Web Developer</h2>
+          <p className="text-slate-400 max-w-sm leading-relaxed text-[17px]">Building modern web applications with React, TypeScript, and Next.js</p>
+          <div className="pt-2"><SocialLinks /></div>
         </div>
       </div>
 
@@ -47,7 +34,7 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
         transition={{ duration: 0.6 }}
         className="hidden lg:block lg:fixed lg:top-0 lg:left-0 lg:w-1/2 lg:h-screen"
       >
-        <div className="h-full ml-[25%] flex flex-col justify-between p-12 xl:p-24">
+        <div className="h-full ml-16 xl:ml-24 2xl:ml-64 flex flex-col justify-between p-12 xl:p-24">
           {/* Header Section */}
           <div>
             <motion.div
@@ -56,22 +43,19 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
               transition={{ delay: 0.2 }}
             >
               <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-slate-100">
-                Sain Orshikh
+                Sain-Orshikh.N
               </h1>
-              <h2 className="text-xl sm:text-2xl font-semibold text-slate-300 mb-2">
-                High School Student
+              <h2 className="text-xl sm:text-2xl font-semibold text-slate-300 mb-6">
+                Web Developer
               </h2>
-              <p className="text-sm text-slate-400 mb-4">
-                Grade 12 • Mongol Aspiration International School
-              </p>
-              <p className="text-slate-400 max-w-sm leading-relaxed">
+              <p className="text-slate-400 max-w-sm leading-relaxed text-[17px]">
                 Building modern web applications with React, TypeScript, and Next.js
               </p>
             </motion.div>
 
             {/* Navigation */}
             <nav className="mt-16" aria-label="Main navigation">
-              <ul className="space-y-4">
+              <ul className="space-y-2">
                 {navItems.map((item, index) => {
                   const isActive = activeSection === item.id;
                   return (
@@ -120,13 +104,7 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
         </div>
       </motion.div>
 
-      {/* Mobile Menu */}
-      <MobileMenu
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
-        activeSection={activeSection}
-        onNavigate={onNavigate}
-      />
+      {/* No mobile menu, just show header and socials */}
     </>
   );
 };

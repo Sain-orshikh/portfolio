@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import FixedSidebar from '../components/ui/FixedSidebar'
+import CursorGradient from '../components/ui/CursorGradient'
 import About from '../sections/About'
 import Experience from '../sections/Experience'
 import Projects from '../sections/Projects'
@@ -48,13 +49,16 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen">
-      <div className="lg:flex">
+    <div className="min-h-screen relative">
+      {/* Cursor Gradient Effect */}
+      <CursorGradient />
+      
+      <div className="lg:flex relative z-10">
         {/* Fixed Left Sidebar */}
         <FixedSidebar activeSection={activeSection} onNavigate={handleNavigate} />
 
         {/* Scrollable Right Content */}
-        <main className="lg:ml-[50%] lg:mr-[15%] lg:w-[50%] px-6 sm:px-12 py-16 lg:py-24 pt-36 lg:pt-24">
+        <main className="lg:ml-[48%] lg:mr-16 xl:mr-24 2xl:mr-56 lg:w-[52%] px-6 sm:px-12 py-16 lg:py-24 pt-24 md:pt-36 lg:pt-24">
           <About />
           <Experience />
           <Projects />
