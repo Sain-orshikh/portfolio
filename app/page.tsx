@@ -54,7 +54,7 @@ export default function Home() {
         <FixedSidebar activeSection={activeSection} onNavigate={handleNavigate} />
 
         {/* Scrollable Right Content */}
-        <main className="lg:ml-[50%] lg:w-[50%] px-6 sm:px-12 py-16 lg:py-24 pt-24 lg:pt-24">
+        <main className="lg:ml-[50%] lg:mr-[15%] lg:w-[50%] px-6 sm:px-12 py-16 lg:py-24 pt-36 lg:pt-24">
           <About />
           <Experience />
           <Projects />

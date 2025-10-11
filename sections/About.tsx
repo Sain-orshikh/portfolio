@@ -11,10 +11,6 @@ const About: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="space-y-6"
       >
-        <h2 className="text-sm font-bold tracking-widest text-slate-100 uppercase mb-16 lg:sr-only">
-          About
-        </h2>
-
         <div className="space-y-4 text-slate-400 leading-relaxed">
           <p>
             I'm a high school senior at <span className="text-slate-100 font-medium">Mongol Aspiration International School</span> passionate about building increasingly complex and challenging web applications.

@@ -1,74 +1,92 @@
 import React from 'react';
 import { projects } from '../src/data/projects';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Projects: React.FC = () => {
   return (
-    <section id="projects" className="mb-36 scroll-mt-24">
+    <section id="projects" className="mb-32 scroll-mt-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="text-sm font-bold tracking-widest text-slate-100 uppercase mb-16 lg:sr-only">
-          Projects
-        </h2>
-
-        <div className="space-y-12">
+        <div className="grid gap-6">
           {projects.map((project, index) => (
-            <motion.a
+            <motion.article
               key={project.id}
-              href={project.demo || project.repo || '#'}
-              target={project.demo || project.repo ? '_blank' : undefined}
-              rel={project.demo || project.repo ? 'noopener noreferrer' : undefined}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="group block relative hover:bg-slate-800/50 rounded-lg p-6 -mx-6 transition-all duration-300 cursor-pointer"
+              className="group relative flex flex-col"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8">
-                {/* Left: Image */}
+              <div className="relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm transition-all duration-500 hover:border-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/5 hover:-translate-y-1 hover:bg-slate-700/20 flex flex-col h-full">
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-600/0 to-slate-700/0 group-hover:from-slate-600/10 group-hover:to-slate-700/10 transition-all duration-500 rounded-xl"></div>
+                
+                {/* Image */}
                 {project.image && (
-                  <div className="lg:col-span-1">
-                    <div className="w-full aspect-video rounded border-2 border-slate-700/60 overflow-hidden group-hover:border-slate-600 transition-colors">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+                  <div className="relative w-full aspect-video overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-60"></div>
                   </div>
                 )}
 
-                {/* Right: Content */}
-                <div className={project.image ? "lg:col-span-3" : "lg:col-span-4"}>
-                  <h3 className="text-base font-semibold text-slate-100 mb-2 group-hover:text-teal-300 transition-colors flex items-center gap-2">
-                    {project.title}
-                    {(project.demo || project.repo) && (
-                      <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-teal-300 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    )}
-                  </h3>
+                {/* Content */}
+                <div className="relative z-10 p-6 flex-1 flex flex-col">
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <h3 className="text-xl font-semibold text-slate-100 group-hover:text-teal-300 transition-colors flex-1">
+                      {project.title}
+                    </h3>
+                    <div className="flex gap-2 shrink-0">
+                      {project.repo && (
+                        <a
+                          href={project.repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg bg-slate-800/50 text-slate-400 hover:text-teal-300 hover:bg-slate-700/50 transition-all"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <Github className="w-4 h-4" />
+                        </a>
+                      )}
+                      {project.demo && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg bg-slate-800/50 text-slate-400 hover:text-teal-300 hover:bg-slate-700/50 transition-all"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
 
-                  <p className="text-sm text-slate-400 leading-relaxed mb-3">
+                  <p className="text-slate-300 leading-relaxed mb-4 flex-1">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2.5 mt-auto">
                     {project.tech.map((tech) => (
-                      <span
+                      <div
                         key={tech}
-                        className="px-3 py-1 text-xs font-medium rounded-full bg-teal-400/10 text-teal-300"
+                        className="px-3 py-1.5 text-xs font-medium rounded-md bg-teal-500/10 text-teal-300 border border-teal-500/30 shadow-sm"
                       >
                         {tech}
-                      </span>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
-            </motion.a>
+            </motion.article>
           ))}
         </div>
       </motion.div>

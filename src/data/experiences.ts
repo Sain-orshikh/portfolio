@@ -13,7 +13,7 @@ export const experiences: Experience[] = [
       'Developed Ug-Center gym website with complex gradient UIs, payment system integration, and time slot management',
       'Collaborated with senior developers on production codebases and version control workflows'
     ],
-    tech: ['React', 'TypeScript', 'Next.js', 'Erxes', 'Payment Integration', 'CRM'],
+    tech: ['TypeScript', 'Next.js', 'Erxes', 'Payment'],
     link: 'https://erxes.io'
   },
   {
@@ -28,7 +28,7 @@ export const experiences: Experience[] = [
       'Developed about section and content management features',
       'Established foundation for ongoing development and future features'
     ],
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel', 'Admin Panel']
+    tech: ['Next.js', 'TypeScript', 'Vercel', 'Cloudinary']
   },
   {
     id: 'exp-3',
@@ -42,7 +42,7 @@ export const experiences: Experience[] = [
       'Improved performance, maintainability, and user experience',
       'Deployed and managed production environment on Vercel'
     ],
-    tech: ['Next.js', 'TypeScript', 'Vercel', 'Migration', 'Notion API']
+    tech: ['Next.js', 'TypeScript', 'Migration', 'Spotify API']
   },
   {
     id: 'exp-4',
@@ -70,6 +70,6 @@ export const experiences: Experience[] = [
       'Learned professional development workflows and best practices',
       'Gained experience in real-world software development environment'
     ],
-    tech: ['Python', 'Web Dashboard', 'IoT']
+    tech: ['Javascript', 'Web Dashboard', 'IoT']
   }
 ];

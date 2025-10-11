@@ -47,7 +47,7 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
         transition={{ duration: 0.6 }}
         className="hidden lg:block lg:fixed lg:top-0 lg:left-0 lg:w-1/2 lg:h-screen"
       >
-        <div className="h-full flex flex-col justify-between p-12 xl:p-24">
+        <div className="h-full ml-[25%] flex flex-col justify-between p-12 xl:p-24">
           {/* Header Section */}
           <div>
             <motion.div
