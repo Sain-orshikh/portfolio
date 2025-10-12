@@ -28,7 +28,8 @@ export const experiences: Experience[] = [
       'Developed about section and content management features',
       'Established foundation for ongoing development and future features'
     ],
-    tech: ['Next.js', 'TypeScript', 'Vercel', 'Cloudinary']
+    tech: ['Next.js', 'TypeScript', 'Vercel', 'Cloudinary'],
+    link: 'https://www.facebook.com/MongolAspiration'
   },
   {
     id: 'exp-3',
@@ -42,12 +43,13 @@ export const experiences: Experience[] = [
       'Improved performance, maintainability, and user experience',
       'Deployed and managed production environment on Vercel'
     ],
-    tech: ['Next.js', 'TypeScript', 'Migration', 'Spotify API']
+    tech: ['Next.js', 'TypeScript', 'Migration', 'Spotify API'],
+    link: 'https://www.studysimple.org'
   },
   {
     id: 'exp-4',
     role: 'Web Developer',
-    company: 'School Club Project (MAIS)',
+    company: 'Passion Project Club (MAIS)',
     period: '2024',
     type: 'school',
     description: 'Built a complete web application from the ground up for a school club.',
@@ -56,7 +58,8 @@ export const experiences: Experience[] = [
       'Created user-friendly interface with modern design principles',
       'Managed deployment and production environment'
     ],
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Full Stack']
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Full Stack'],
+    link: 'https://github.com/Sain-orshikh/PP_web'
   },
   {
     id: 'exp-5',
@@ -66,10 +69,11 @@ export const experiences: Experience[] = [
     type: 'unpaid',
     description: 'First professional internship experience, working on IoT dashboard for electric meter monitoring.',
     achievements: [
-      'Developed web dashboard for electric meter data visualization',
+      'Worked on web dashboard for electric meter data visualization',
       'Learned professional development workflows and best practices',
       'Gained experience in real-world software development environment'
     ],
-    tech: ['Javascript', 'Web Dashboard', 'IoT']
+    tech: ['Javascript', 'Web Dashboard', 'IoT'],
+    link: 'https://gersmart.mn/'
   }
 ];
