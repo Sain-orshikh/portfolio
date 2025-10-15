@@ -75,6 +75,15 @@ export const projects: Project[] = [
   },
   {
     id: 'proj-9',
+    title: 'Passion Project club website',
+    description: 'The official club for my high school club, Passion Project. Built to showcase our projects and share resources with schoolmates. Unfortunately, the club is now inactive, and the project was never fully completed.',
+    tech: ['Vite', 'CMS', 'MongoDB', 'Vercel'],
+    repo: 'https://github.com/Sain-orshikh/portfolio',
+    demo: 'https://pp-web-nu.vercel.app/',
+    image: '/ppweb.webp'
+  },
+  {
+    id: 'proj-10',
     title: 'Cost Tracker App',
     description: 'A personal cost tracker app built for travel expense management. Designed for self-use to log and analyze spending during trips.',
     tech: ['MongoDB', 'Express', 'React', 'Node.js', 'Full-Stack'],
