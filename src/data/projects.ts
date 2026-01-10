@@ -156,6 +156,6 @@ export const projects: Project[] = [
     ],
     repo: "",
     demo: "",
-    image: "/coming-soon-1768064498130.jpg"
+    image: "/coming-soon-1768065544454.jpg"
   }
 ];
