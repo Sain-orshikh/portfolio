@@ -15,6 +15,7 @@ export default function ProjectsManagement() {
   const [techInput, setTechInput] = useState('');
   const [uploading, setUploading] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
 
   const handleAdd = () => {
     setEditingProject({
@@ -28,6 +29,7 @@ export default function ProjectsManagement() {
     });
     setTechInput('');
     setImagePreview(null);
+    setPendingImageFile(null);
     setIsModalOpen(true);
   };
 
@@ -35,6 +37,7 @@ export default function ProjectsManagement() {
     setEditingProject({ ...project });
     setTechInput(project.tech.join(', '));
     setImagePreview(project.image || null);
+    setPendingImageFile(null);
     setIsModalOpen(true);
   };
 
@@ -62,12 +65,36 @@ export default function ProjectsManagement() {
 
     setSaving(true);
     try {
+      let imagePath = editingProject.image;
+
+      // Upload image first if there's a pending file
+      if (pendingImageFile) {
+        const formData = new FormData();
+        formData.append('file', pendingImageFile);
+
+        const uploadRes = await fetch('/api/admin/upload-image', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (uploadRes.ok) {
+          const uploadData = await uploadRes.json();
+          imagePath = uploadData.path;
+        } else {
+          const error = await uploadRes.json();
+          alert(`Image upload failed: ${error.error}`);
+          setSaving(false);
+          return;
+        }
+      }
+
       const isNew = !initialProjects.find(p => p.id === editingProject.id);
       const method = isNew ? 'POST' : 'PUT';
 
       // Parse tech stack from input string
       const projectToSave = {
         ...editingProject,
+        image: imagePath,
         tech: techInput.split(',').map(t => t.trim()).filter(Boolean)
       };
 
@@ -85,6 +112,8 @@ export default function ProjectsManagement() {
         }
         setIsModalOpen(false);
         setEditingProject(null);
+        setPendingImageFile(null);
+        setImagePreview(null);
         alert('Saved! Changes committed to GitHub. Deployment will start shortly.');
       } else {
         const error = await res.json();
@@ -114,41 +143,15 @@ export default function ProjectsManagement() {
       return;
     }
 
-    // Show preview
+    // Store file for later upload when saving
+    setPendingImageFile(file);
+
+    // Show preview using object URL
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result as string);
     };
     reader.readAsDataURL(file);
-
-    // Upload to server
-    setUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const res = await fetch('/api/admin/upload-image', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        if (editingProject) {
-          setEditingProject({ ...editingProject, image: data.path });
-        }
-        alert(`Image uploaded successfully: ${data.filename}`);
-      } else {
-        const error = await res.json();
-        alert(`Upload failed: ${error.error}`);
-        setImagePreview(null);
-      }
-    } catch (error) {
-      alert('Error uploading image');
-      setImagePreview(null);
-    } finally {
-      setUploading(false);
-    }
   };
 
   const handlePreview = (project: Project) => {

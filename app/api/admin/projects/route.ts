@@ -32,6 +32,9 @@ function parseProjectsFile(content: string): Project[] {
     return `__STRING_${index++}__`;
   });
   
+  // Remove inline comments (// ...)
+  jsonStr = jsonStr.replace(/\/\/[^\n]*/g, '');
+  
   // Remove trailing commas
   jsonStr = jsonStr.replace(/,(\s*[}\]])/g, '$1');
   

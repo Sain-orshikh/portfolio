@@ -20,18 +20,49 @@ function parseExperiencesFile(content: string): Experience[] {
   const match = content.match(/export const experiences: Experience\[\] = (\[[\s\S]*?\]);/);
   if (!match) throw new Error('Could not parse experiences array');
   
-  const jsonStr = match[1]
-    .replace(/'/g, '"')
-    .replace(/,(\s*[}\]])/g, '$1');
+  let jsonStr = match[1];
   
-  return JSON.parse(jsonStr);
+  // Handle apostrophes and quotes carefully
+  // First, protect string content by finding all string values
+  const stringPattern = /'([^'\\]*(\\.[^'\\]*)*)'/g;
+  const strings: string[] = [];
+  let index = 0;
+  
+  // Extract all strings and replace them with placeholders
+  jsonStr = jsonStr.replace(stringPattern, (match) => {
+    strings.push(match);
+    return `__STRING_${index++}__`;
+  });
+  
+  // Remove inline comments (// ...)
+  jsonStr = jsonStr.replace(/\/\/[^\n]*/g, '');
+  
+  // Remove trailing commas
+  jsonStr = jsonStr.replace(/,(\s*[}\]])/g, '$1');
+  
+  // Restore strings with double quotes
+  index = 0;
+  jsonStr = jsonStr.replace(/__STRING_(\d+)__/g, () => {
+    const str = strings[index++];
+    // Convert single quotes to double quotes and escape internal quotes
+    return str.replace(/^'|'$/g, '"').replace(/\\'/g, "'").replace(/(?<!\\)"/g, '\\"');
+  });
+  
+  try {
+    return JSON.parse(jsonStr);
+  } catch (error) {
+    console.error('Failed to parse JSON:', jsonStr);
+    throw new Error('Failed to parse experiences file');
+  }
 }
 
 // Helper to reconstruct TypeScript file from experiences array
 function buildExperiencesFile(experiences: Experience[]): string {
   const experiencesStr = JSON.stringify(experiences, null, 2)
-    .replace(/"([^"]+)":/g, '$1:')
-    .replace(/"/g, "'")
+    .replace(/"([^"]+)":/g, '$1:') // Remove quotes from keys
+    .replace(/\\"/g, '\\\\"') // Escape backslash-quotes
+    .replace(/"/g, "'") // Use single quotes
+    .replace(/\\\\"/g, "\\'") // Fix escaped quotes
     .replace(/'(paid|unpaid|school|personal)'/g, "'$1'"); // Keep type values as strings
   
   return `import type { Experience } from '../types';
