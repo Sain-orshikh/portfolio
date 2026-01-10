@@ -34,7 +34,7 @@ export const projects: Project[] = [
     description: 'Official website for Mongol Aspiration International School. Built homepage, navigation, footer, admin panel, and about section. Modern, accessible design with content management capabilities.',
     tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Admin Panel', 'Cloudinary'],
     repo: '', // Add your GitHub link later
-    demo: 'https://maisweb.vercel.app/',
+    demo: 'https://mongolaspiration.com/',
     image: '/mais.webp'
   },
   {

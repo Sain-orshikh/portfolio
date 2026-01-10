@@ -65,7 +65,7 @@ export const experiences: Experience[] = [
     id: 'exp-5',
     role: 'Software Engineer Intern',
     company: 'Misheel Orshikh LLC',
-    period: 'Summer 2023 (Grade 10)',
+    period: 'Summer 2023',
     type: 'unpaid',
     description: 'First professional internship experience, working on IoT dashboard for electric meter monitoring.',
     achievements: [
