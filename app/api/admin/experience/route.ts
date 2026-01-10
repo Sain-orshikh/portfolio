@@ -59,11 +59,8 @@ function parseExperiencesFile(content: string): Experience[] {
 // Helper to reconstruct TypeScript file from experiences array
 function buildExperiencesFile(experiences: Experience[]): string {
   const experiencesStr = JSON.stringify(experiences, null, 2)
-    .replace(/"([^"]+)":/g, '$1:') // Remove quotes from keys
-    .replace(/\\"/g, '\\\\"') // Escape backslash-quotes
-    .replace(/"/g, "'") // Use single quotes
-    .replace(/\\\\"/g, "\\'") // Fix escaped quotes
-    .replace(/'(paid|unpaid|school|personal)'/g, "'$1'"); // Keep type values as strings
+    .replace(/"([^"]+)":/g, '$1:') // Remove quotes from object keys
+    .replace(/"/g, "'"); // Replace all double quotes with single quotes
   
   return `import type { Experience } from '../types';
 

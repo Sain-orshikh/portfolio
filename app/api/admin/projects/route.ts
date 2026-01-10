@@ -57,10 +57,8 @@ function parseProjectsFile(content: string): Project[] {
 // Helper to reconstruct TypeScript file from projects array
 function buildProjectsFile(projects: Project[]): string {
   const projectsStr = JSON.stringify(projects, null, 2)
-    .replace(/"([^"]+)":/g, '$1:') // Remove quotes from keys
-    .replace(/\\"/g, '\\\\"') // Escape backslash-quotes
-    .replace(/"/g, "'") // Use single quotes
-    .replace(/\\\\"/g, "\\'"); // Fix escaped quotes
+    .replace(/"([^"]+)":/g, '$1:') // Remove quotes from object keys
+    .replace(/"/g, "'"); // Replace all double quotes with single quotes
   
   return `import type { Project } from '../types';
 
