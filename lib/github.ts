@@ -45,11 +45,14 @@ export class GitHubClient {
     path: string,
     content: string,
     message: string,
-    sha: string
+    sha: string,
+    isBase64Encoded = false
   ): Promise<void> {
     const url = `https://api.github.com/repos/${this.owner}/${this.repo}/contents/${path}`;
     
-    const encodedContent = Buffer.from(content).toString('base64');
+    // If content is already base64 encoded (like images), use it directly
+    // Otherwise, encode it (for text files)
+    const encodedContent = isBase64Encoded ? content : Buffer.from(content).toString('base64');
 
     const response = await fetch(url, {
       method: 'PUT',

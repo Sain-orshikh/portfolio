@@ -63,8 +63,12 @@ export async function POST(request: Request) {
       path,
       base64Content,
       `Upload image: ${filename}`,
-      fileSha
+      fileSha,
+      true // Content is already base64 encoded
     );
+
+    console.log(`Successfully uploaded image to GitHub: ${path}`);
+    console.log(`Image will be accessible at: /${filename}`);
 
     // Return the path that will be used in the project
     const imagePath = `/${filename}`;
@@ -72,7 +76,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ 
       success: true, 
       path: imagePath,
-      filename 
+      filename,
+      githubPath: path
     });
   } catch (error: any) {
     console.error('Image upload error:', error);

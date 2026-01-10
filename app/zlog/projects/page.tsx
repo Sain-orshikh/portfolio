@@ -205,11 +205,22 @@ export default function ProjectsManagement() {
               <div className="relative flex flex-col sm:flex-row gap-4 p-4">
                 {/* Image */}
                 {project.image && (
-                  <div className="relative w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden border-2 border-slate-700/50">
+                  <div className="relative w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden border-2 border-slate-700/50 bg-slate-800/50">
                     <img
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Hide broken image, show placeholder
+                        e.currentTarget.style.display = 'none';
+                        const parent = e.currentTarget.parentElement;
+                        if (parent && !parent.querySelector('.placeholder-text')) {
+                          const placeholder = document.createElement('div');
+                          placeholder.className = 'placeholder-text absolute inset-0 flex items-center justify-center text-slate-500 text-xs text-center p-2';
+                          placeholder.textContent = 'Image will be visible after deployment';
+                          parent.appendChild(placeholder);
+                        }
+                      }}
                     />
                   </div>
                 )}

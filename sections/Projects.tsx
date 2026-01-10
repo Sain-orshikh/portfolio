@@ -42,11 +42,24 @@ const Projects: React.FC = () => {
                   
                   {/* Image on Left - Separate Rectangle */}
                   {project.image && (
-                    <div className="relative w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden border-2 border-slate-700/50 group-hover:border-teal-400/50 transition-all duration-300">
+                    <div className="relative w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden border-2 border-slate-700/50 group-hover:border-teal-400/50 transition-all duration-300 bg-slate-800/50">
                       <img
                         src={project.image}
                         alt={project.title}
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          console.error(`Failed to load image: ${project.image} for project: ${project.title}`);
+                          console.error(`Full URL attempted: ${e.currentTarget.src}`);
+                          e.currentTarget.style.display = 'none';
+                          const parent = e.currentTarget.parentElement;
+                          if (parent && !parent.querySelector('.error-msg')) {
+                            const errorDiv = document.createElement('div');
+                            errorDiv.className = 'error-msg absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs p-2 text-center';
+                            errorDiv.innerHTML = `<p>Image not found</p><p class="text-[10px] mt-1">${project.image}</p>`;
+                            parent.appendChild(errorDiv);
+                          }
+                        }}
                       />
                     </div>
                   )}
