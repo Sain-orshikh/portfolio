@@ -194,7 +194,7 @@ export default function ProjectsManagement() {
 
         {/* Projects Grid */}
         <div className="grid gap-6">
-          {projects.map((project) => (
+          {[...projects].reverse().map((project) => (
             <div
               key={project.id}
               className="relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm transition-all duration-500 hover:border-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/5"

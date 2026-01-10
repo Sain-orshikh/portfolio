@@ -6,7 +6,8 @@ import { motion } from 'framer-motion';
 
 const Projects: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
-  const displayedProjects = showAll ? projects : projects.slice(0, 5);
+  const reversedProjects = [...projects].reverse(); // Show latest first
+  const displayedProjects = showAll ? reversedProjects : reversedProjects.slice(0, 5);
   const hasMoreProjects = projects.length > 5;
 
   return (

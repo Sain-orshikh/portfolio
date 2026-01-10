@@ -145,13 +145,4 @@ export const projects: Project[] = [
     demo: 'https://zlog-costs.vercel.app/',
     image: '/costtracker.webp'
   },
-  {
-    id: 'proj-1768063474325',
-    title: 'asd',
-    description: 'asdsaasa',
-    tech: [],
-    repo: '',
-    demo: '',
-    image: ''
-  }
 ];
