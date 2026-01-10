@@ -479,10 +479,10 @@ export default function ProjectsManagement() {
 
               {/* Preview Card */}
               <div className="relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm flex flex-col sm:flex-row gap-4 p-4">
-                {previewProject.image && (
+                {(imagePreview || previewProject.image) && (
                   <div className="relative w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden border-2 border-slate-700/50">
                     <img
-                      src={previewProject.image}
+                      src={imagePreview || previewProject.image}
                       alt={previewProject.title}
                       className="w-full h-full object-cover"
                     />
