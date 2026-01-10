@@ -18,19 +18,46 @@ function parseProjectsFile(content: string): Project[] {
   const match = content.match(/export const projects: Project\[\] = (\[[\s\S]*?\]);/);
   if (!match) throw new Error('Could not parse projects array');
   
-  // Replace single quotes with double quotes for valid JSON
-  const jsonStr = match[1]
-    .replace(/'/g, '"')
-    .replace(/,(\s*[}\]])/g, '$1'); // Remove trailing commas
+  let jsonStr = match[1];
   
-  return JSON.parse(jsonStr);
+  // Handle apostrophes and quotes carefully
+  // First, protect string content by finding all string values
+  const stringPattern = /'([^'\\]*(\\.[^'\\]*)*)'/g;
+  const strings: string[] = [];
+  let index = 0;
+  
+  // Extract all strings and replace them with placeholders
+  jsonStr = jsonStr.replace(stringPattern, (match) => {
+    strings.push(match);
+    return `__STRING_${index++}__`;
+  });
+  
+  // Remove trailing commas
+  jsonStr = jsonStr.replace(/,(\s*[}\]])/g, '$1');
+  
+  // Restore strings with double quotes
+  index = 0;
+  jsonStr = jsonStr.replace(/__STRING_(\d+)__/g, () => {
+    const str = strings[index++];
+    // Convert single quotes to double quotes and escape internal quotes
+    return str.replace(/^'|'$/g, '"').replace(/\\'/g, "'").replace(/(?<!\\)"/g, '\\"');
+  });
+  
+  try {
+    return JSON.parse(jsonStr);
+  } catch (error) {
+    console.error('Failed to parse JSON:', jsonStr);
+    throw new Error('Failed to parse projects file');
+  }
 }
 
 // Helper to reconstruct TypeScript file from projects array
 function buildProjectsFile(projects: Project[]): string {
   const projectsStr = JSON.stringify(projects, null, 2)
     .replace(/"([^"]+)":/g, '$1:') // Remove quotes from keys
-    .replace(/"/g, "'"); // Use single quotes
+    .replace(/\\"/g, '\\\\"') // Escape backslash-quotes
+    .replace(/"/g, "'") // Use single quotes
+    .replace(/\\\\"/g, "\\'"); // Fix escaped quotes
   
   return `import type { Project } from '../types';
 
