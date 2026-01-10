@@ -1,34 +1,18 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { ArrowLeft, Plus, ChevronDown, Edit2, Trash2, Eye, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowLeft, Plus, Edit2, Trash2, Eye, ExternalLink } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { experiences as initialExperiences } from '@/src/data/experiences';
 import type { Experience } from '@/src/types';
 
 export default function ExperienceManagement() {
   const router = useRouter();
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [experiences, setExperiences] = useState<Experience[]>(initialExperiences);
   const [editingExperience, setEditingExperience] = useState<Experience | null>(null);
   const [previewExperience, setPreviewExperience] = useState<Experience | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    fetchExperiences();
-  }, []);
-
-  const fetchExperiences = async () => {
-    try {
-      const res = await fetch('/api/admin/experience');
-      const data = await res.json();
-      setExperiences(data.experiences || []);
-    } catch (error) {
-      console.error('Failed to fetch experiences:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [techInput, setTechInput] = useState('');
 
   const handleAdd = () => {
     setEditingExperience({
@@ -42,11 +26,13 @@ export default function ExperienceManagement() {
       type: 'paid',
       link: '',
     });
+    setTechInput('');
     setIsModalOpen(true);
   };
 
   const handleEdit = (experience: Experience) => {
     setEditingExperience({ ...experience });
+    setTechInput(experience.tech.join(', '));
     setIsModalOpen(true);
   };
 
@@ -76,10 +62,11 @@ export default function ExperienceManagement() {
       const isNew = !experiences.find(e => e.id === editingExperience.id);
       const method = isNew ? 'POST' : 'PUT';
 
-      // Filter out empty achievements
+      // Filter out empty achievements and parse tech stack
       const cleanedExperience = {
         ...editingExperience,
         achievements: editingExperience.achievements.filter((a: string) => a.trim() !== ''),
+        tech: techInput.split(',').map(t => t.trim()).filter(Boolean)
       };
 
       const res = await fetch('/api/admin/experience', {
@@ -89,9 +76,15 @@ export default function ExperienceManagement() {
       });
 
       if (res.ok) {
-        await fetchExperiences();
+        // Update local state
+        if (isNew) {
+          setExperiences([...experiences, cleanedExperience]);
+        } else {
+          setExperiences(experiences.map(e => e.id === cleanedExperience.id ? cleanedExperience : e));
+        }
         setIsModalOpen(false);
         setEditingExperience(null);
+        alert('Saved! Changes committed to GitHub. Deployment will start shortly.');
       } else {
         const error = await res.json();
         alert(`Failed to save: ${error.error}`);
@@ -104,7 +97,11 @@ export default function ExperienceManagement() {
   };
 
   const handlePreview = (experience: Experience) => {
-    setPreviewExperience(experience);
+    const previewData = {
+      ...experience,
+      tech: techInput.split(',').map(t => t.trim()).filter(Boolean)
+    };
+    setPreviewExperience(previewData);
   };
 
   const addAchievement = () => {
@@ -136,14 +133,6 @@ export default function ExperienceManagement() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="text-slate-400">Loading...</div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-slate-900 py-8 px-4">
       <div className="max-w-6xl mx-auto">
@@ -171,103 +160,87 @@ export default function ExperienceManagement() {
           </button>
         </div>
 
-        {/* Experience List - Accordion Style */}
-        <div className="space-y-3">
+        {/* Experience Grid - Same style as homepage */}
+        <div className="grid gap-6">
           {experiences.map((experience) => (
             <div
               key={experience.id}
-              className="border border-slate-700/50 bg-slate-800/30 rounded-lg overflow-hidden"
+              className="relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm p-6 transition-all duration-500 hover:border-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/5"
             >
-              {/* Collapsed Header */}
-              <div
-                onClick={() => setExpandedId(expandedId === experience.id ? null : experience.id)}
-                className="flex items-center justify-between p-4 cursor-pointer hover:bg-slate-800/50 transition-colors"
-              >
-                <div className="flex items-center gap-3 flex-1">
-                  <ChevronDown
-                    className={`w-5 h-5 text-slate-400 transition-transform ${
-                      expandedId === experience.id ? 'rotate-180' : ''
-                    }`}
-                  />
-                  <div>
-                    <h3 className="text-white font-medium">{experience.role}</h3>
-                    <p className="text-slate-500 text-sm">
-                      {experience.company} • {experience.period}
-                    </p>
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-600/0 to-slate-700/0 hover:from-slate-600/10 hover:to-slate-700/10 transition-all duration-500 rounded-xl"></div>
+              
+              <div className="relative">
+                {/* Header */}
+                <div className="mb-3">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <h3 className="text-lg font-bold text-white">{experience.role}</h3>
+                    <span className="px-2 py-1 bg-teal-500/10 border border-teal-500/30 rounded text-teal-400 text-xs flex-shrink-0">
+                      {experience.type}
+                    </span>
                   </div>
+                  <p className="text-teal-400 font-medium">{experience.company}</p>
+                  <p className="text-slate-500 text-sm">{experience.period}</p>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="px-2 py-1 bg-teal-500/10 border border-teal-500/30 rounded text-teal-400 text-xs">
-                    {experience.type}
-                  </span>
+                {/* Description */}
+                <p className="text-slate-400 text-sm mb-4">{experience.description}</p>
+
+                {/* Achievements */}
+                {experience.achievements.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="text-white font-medium text-sm mb-2">Key Achievements:</h4>
+                    <ul className="list-disc list-inside space-y-1">
+                      {experience.achievements.map((achievement: string, i: number) => (
+                        <li key={i} className="text-slate-400 text-sm">{achievement}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Tech Stack */}
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {experience.tech.map((tech: string, i: number) => (
+                    <span
+                      key={i}
+                      className="px-2 py-1 bg-teal-500/10 border border-teal-500/30 rounded text-teal-400 text-xs"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Link */}
+                {experience.link && (
+                  <a
+                    href={experience.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-slate-400 hover:text-teal-400 text-sm"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Visit Website
+                  </a>
+                )}
+
+                {/* Action Buttons */}
+                <div className="absolute top-4 right-4 flex gap-2">
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleEdit(experience);
-                    }}
-                    className="p-2 hover:bg-slate-700 rounded-lg transition-colors"
+                    onClick={() => handleEdit(experience)}
+                    className="p-2 bg-slate-800/80 hover:bg-slate-700 border border-slate-700/50 rounded-lg transition-colors backdrop-blur-sm"
+                    title="Edit"
                   >
                     <Edit2 className="w-4 h-4 text-teal-400" />
                   </button>
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDelete(experience.id);
-                    }}
-                    className="p-2 hover:bg-slate-700 rounded-lg transition-colors"
+                    onClick={() => handleDelete(experience.id)}
+                    className="p-2 bg-slate-800/80 hover:bg-slate-700 border border-slate-700/50 rounded-lg transition-colors backdrop-blur-sm"
+                    title="Delete"
                   >
                     <Trash2 className="w-4 h-4 text-red-400" />
                   </button>
                 </div>
               </div>
-
-              {/* Expanded Content */}
-              {expandedId === experience.id && (
-                <div className="p-4 pt-0 border-t border-slate-700/30">
-                  <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/30">
-                    <div className="mb-3">
-                      <h3 className="text-lg font-bold text-white">{experience.role}</h3>
-                      <p className="text-teal-400">{experience.company}</p>
-                      <p className="text-slate-500 text-sm">{experience.period}</p>
-                    </div>
-
-                    <p className="text-slate-400 text-sm mb-3">{experience.description}</p>
-
-                    <div className="mb-3">
-                      <h4 className="text-white font-medium text-sm mb-2">Achievements:</h4>
-                      <ul className="list-disc list-inside space-y-1">
-                        {experience.achievements.map((achievement: string, i: number) => (
-                          <li key={i} className="text-slate-400 text-sm">{achievement}</li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {experience.tech.map((tech: string, i: number) => (
-                        <span
-                          key={i}
-                          className="px-2 py-1 bg-teal-500/10 border border-teal-500/30 rounded text-teal-400 text-xs"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {experience.link && (
-                      <a
-                        href={experience.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-slate-400 hover:text-teal-400 text-sm"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Visit Website
-                      </a>
-                    )}
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -403,11 +376,8 @@ export default function ExperienceManagement() {
                     </label>
                     <input
                       type="text"
-                      value={editingExperience.tech.join(', ')}
-                      onChange={(e) => setEditingExperience({
-                        ...editingExperience,
-                        tech: e.target.value.split(',').map(t => t.trim()).filter(Boolean)
-                      })}
+                      value={techInput}
+                      onChange={(e) => setTechInput(e.target.value)}
                       className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-teal-500"
                       placeholder="TypeScript, Next.js, GraphQL"
                     />

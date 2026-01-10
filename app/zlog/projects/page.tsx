@@ -1,34 +1,20 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { ArrowLeft, Plus, ChevronDown, Edit2, Trash2, Eye, ExternalLink, Github } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowLeft, Plus, Edit2, Trash2, Eye, ExternalLink, Github, Upload } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { projects as initialProjects } from '@/src/data/projects';
 import type { Project } from '@/src/types';
 
 export default function ProjectsManagement() {
   const router = useRouter();
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  const fetchProjects = async () => {
-    try {
-      const res = await fetch('/api/admin/projects');
-      const data = await res.json();
-      setProjects(data.projects || []);
-    } catch (error) {
-      console.error('Failed to fetch projects:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [techInput, setTechInput] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const handleAdd = () => {
     setEditingProject({
@@ -40,11 +26,15 @@ export default function ProjectsManagement() {
       demo: '',
       image: '',
     });
+    setTechInput('');
+    setImagePreview(null);
     setIsModalOpen(true);
   };
 
   const handleEdit = (project: Project) => {
     setEditingProject({ ...project });
+    setTechInput(project.tech.join(', '));
+    setImagePreview(project.image || null);
     setIsModalOpen(true);
   };
 
@@ -58,6 +48,7 @@ export default function ProjectsManagement() {
 
       if (res.ok) {
         setProjects(projects.filter(p => p.id !== id));
+        alert('Deleted! Changes committed to GitHub.');
       } else {
         alert('Failed to delete project');
       }
@@ -71,19 +62,30 @@ export default function ProjectsManagement() {
 
     setSaving(true);
     try {
-      const isNew = !projects.find(p => p.id === editingProject.id);
+      const isNew = !initialProjects.find(p => p.id === editingProject.id);
       const method = isNew ? 'POST' : 'PUT';
+
+      // Parse tech stack from input string
+      const projectToSave = {
+        ...editingProject,
+        tech: techInput.split(',').map(t => t.trim()).filter(Boolean)
+      };
 
       const res = await fetch('/api/admin/projects', {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(editingProject),
+        body: JSON.stringify(projectToSave),
       });
 
       if (res.ok) {
-        await fetchProjects();
+        if (isNew) {
+          setProjects([...projects, projectToSave]);
+        } else {
+          setProjects(projects.map(p => p.id === editingProject.id ? projectToSave : p));
+        }
         setIsModalOpen(false);
         setEditingProject(null);
+        alert('Saved! Changes committed to GitHub. Deployment will start shortly.');
       } else {
         const error = await res.json();
         alert(`Failed to save: ${error.error}`);
@@ -95,17 +97,67 @@ export default function ProjectsManagement() {
     }
   };
 
-  const handlePreview = (project: Project) => {
-    setPreviewProject(project);
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+    if (!validTypes.includes(file.type)) {
+      alert('Invalid file type. Please use: jpg, png, webp, or gif');
+      return;
+    }
+
+    // Validate file size (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File too large. Maximum size: 5MB');
+      return;
+    }
+
+    // Show preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+
+    // Upload to server
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('/api/admin/upload-image', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (editingProject) {
+          setEditingProject({ ...editingProject, image: data.path });
+        }
+        alert(`Image uploaded successfully: ${data.filename}`);
+      } else {
+        const error = await res.json();
+        alert(`Upload failed: ${error.error}`);
+        setImagePreview(null);
+      }
+    } catch (error) {
+      alert('Error uploading image');
+      setImagePreview(null);
+    } finally {
+      setUploading(false);
+    }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="text-slate-400">Loading...</div>
-      </div>
-    );
-  }
+  const handlePreview = (project: Project) => {
+    const previewData = {
+      ...project,
+      tech: techInput.split(',').map(t => t.trim()).filter(Boolean)
+    };
+    setPreviewProject(previewData);
+  };
 
   return (
     <div className="min-h-screen bg-slate-900 py-8 px-4">
@@ -134,111 +186,90 @@ export default function ProjectsManagement() {
           </button>
         </div>
 
-        {/* Projects List - Accordion Style */}
-        <div className="space-y-3">
+        {/* Projects Grid */}
+        <div className="grid gap-6">
           {projects.map((project) => (
             <div
               key={project.id}
-              className="border border-slate-700/50 bg-slate-800/30 rounded-lg overflow-hidden"
+              className="relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm transition-all duration-500 hover:border-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/5"
             >
-              {/* Collapsed Header */}
-              <div
-                onClick={() => setExpandedId(expandedId === project.id ? null : project.id)}
-                className="flex items-center justify-between p-4 cursor-pointer hover:bg-slate-800/50 transition-colors"
-              >
-                <div className="flex items-center gap-3 flex-1">
-                  <ChevronDown
-                    className={`w-5 h-5 text-slate-400 transition-transform ${
-                      expandedId === project.id ? 'rotate-180' : ''
-                    }`}
-                  />
-                  <div>
-                    <h3 className="text-white font-medium">{project.title}</h3>
-                    <p className="text-slate-500 text-sm">{project.tech.join(', ')}</p>
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-600/0 to-slate-700/0 hover:from-slate-600/10 hover:to-slate-700/10 transition-all duration-500 rounded-xl"></div>
+              
+              <div className="relative flex flex-col sm:flex-row gap-4 p-4">
+                {/* Image */}
+                {project.image && (
+                  <div className="relative w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden border-2 border-slate-700/50">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+
+                {/* Content */}
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
+                  <p className="text-slate-400 text-sm mb-3">{project.description}</p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {project.tech.map((tech: string, i: number) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 bg-teal-500/10 border border-teal-500/30 rounded text-teal-400 text-xs"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-3">
+                    {project.repo && (
+                      <a
+                        href={project.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-slate-400 hover:text-teal-400 text-sm"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Github className="w-4 h-4" />
+                        Repo
+                      </a>
+                    )}
+                    {project.demo && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-slate-400 hover:text-teal-400 text-sm"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Demo
+                      </a>
+                    )}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                {/* Action Buttons */}
+                <div className="absolute top-4 right-4 flex gap-2">
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleEdit(project);
-                    }}
-                    className="p-2 hover:bg-slate-700 rounded-lg transition-colors"
+                    onClick={() => handleEdit(project)}
+                    className="p-2 bg-slate-800/80 hover:bg-slate-700 border border-slate-700/50 rounded-lg transition-colors backdrop-blur-sm"
+                    title="Edit"
                   >
                     <Edit2 className="w-4 h-4 text-teal-400" />
                   </button>
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDelete(project.id);
-                    }}
-                    className="p-2 hover:bg-slate-700 rounded-lg transition-colors"
+                    onClick={() => handleDelete(project.id)}
+                    className="p-2 bg-slate-800/80 hover:bg-slate-700 border border-slate-700/50 rounded-lg transition-colors backdrop-blur-sm"
+                    title="Delete"
                   >
                     <Trash2 className="w-4 h-4 text-red-400" />
                   </button>
                 </div>
               </div>
-
-              {/* Expanded Content - Full Project Card */}
-              {expandedId === project.id && (
-                <div className="p-4 pt-0 border-t border-slate-700/30">
-                  <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/30">
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      {project.image && (
-                        <div className="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden border-2 border-slate-700/50">
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      )}
-
-                      <div className="flex-1">
-                        <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                        <p className="text-slate-400 text-sm mb-3">{project.description}</p>
-                        
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          {project.tech.map((tech: string, i: number) => (
-                            <span
-                              key={i}
-                              className="px-2 py-1 bg-teal-500/10 border border-teal-500/30 rounded text-teal-400 text-xs"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="flex gap-3">
-                          {project.repo && (
-                            <a
-                              href={project.repo}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-1 text-slate-400 hover:text-teal-400 text-sm"
-                            >
-                              <Github className="w-4 h-4" />
-                              Repo
-                            </a>
-                          )}
-                          {project.demo && (
-                            <a
-                              href={project.demo}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-1 text-slate-400 hover:text-teal-400 text-sm"
-                            >
-                              <ExternalLink className="w-4 h-4" />
-                              Demo
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -250,7 +281,7 @@ export default function ProjectsManagement() {
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold text-white">
-                    {projects.find(p => p.id === editingProject.id) ? 'Edit' : 'Add'} Project
+                    {initialProjects.find(p => p.id === editingProject.id) ? 'Edit' : 'Add'} Project
                   </h2>
                   <button
                     onClick={() => {
@@ -299,13 +330,10 @@ export default function ProjectsManagement() {
                     </label>
                     <input
                       type="text"
-                      value={editingProject.tech.join(', ')}
-                      onChange={(e) => setEditingProject({
-                        ...editingProject,
-                        tech: e.target.value.split(',').map(t => t.trim()).filter(Boolean)
-                      })}
+                      value={techInput}
+                      onChange={(e) => setTechInput(e.target.value)}
                       className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-teal-500"
-                      placeholder="Next.js, TypeScript, Tailwind"
+                      placeholder="Python, Pygame, Game Development"
                     />
                   </div>
 
@@ -337,18 +365,66 @@ export default function ProjectsManagement() {
                     />
                   </div>
 
-                  {/* Image URL */}
+                  {/* Image Upload */}
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Image Path
+                      Project Image
                     </label>
-                    <input
-                      type="text"
-                      value={editingProject.image || ''}
-                      onChange={(e) => setEditingProject({ ...editingProject, image: e.target.value })}
-                      className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-teal-500"
-                      placeholder="/project-image.webp"
-                    />
+                    
+                    {/* Image Preview */}
+                    {imagePreview && (
+                      <div className="mb-3 relative">
+                        <img 
+                          src={imagePreview} 
+                          alt="Preview" 
+                          className="w-full h-48 object-cover rounded-lg border-2 border-slate-700"
+                        />
+                        <button
+                          onClick={() => {
+                            setImagePreview(null);
+                            setEditingProject({ ...editingProject, image: '' });
+                          }}
+                          className="absolute top-2 right-2 p-1 bg-red-500 hover:bg-red-600 rounded text-white text-xs"
+                          type="button"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Upload Button */}
+                    <div className="flex gap-2">
+                      <label className="flex-1 cursor-pointer">
+                        <div className="px-4 py-2 bg-teal-500/10 hover:bg-teal-500/20 border border-teal-500/30 rounded-lg text-teal-400 text-center transition-colors">
+                          {uploading ? 'Uploading...' : '📁 Upload Image'}
+                        </div>
+                        <input
+                          type="file"
+                          accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                          onChange={handleImageUpload}
+                          className="hidden"
+                          disabled={uploading}
+                        />
+                      </label>
+                    </div>
+                    
+                    {/* Or manual path input */}
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        value={editingProject.image || ''}
+                        onChange={(e) => {
+                          setEditingProject({ ...editingProject, image: e.target.value });
+                          setImagePreview(e.target.value);
+                        }}
+                        className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-teal-500 text-sm"
+                        placeholder="Or enter path manually: /image.webp"
+                      />
+                    </div>
+                    
+                    <p className="text-xs text-slate-500 mt-1">
+                      Accepted: JPG, PNG, WebP, GIF (max 5MB)
+                    </p>
                   </div>
                 </div>
 
@@ -398,7 +474,7 @@ export default function ProjectsManagement() {
                 </button>
               </div>
 
-              {/* Preview Card (same style as main site) */}
+              {/* Preview Card */}
               <div className="relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm flex flex-col sm:flex-row gap-4 p-4">
                 {previewProject.image && (
                   <div className="relative w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden border-2 border-slate-700/50">
