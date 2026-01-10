@@ -67,7 +67,7 @@ export default function ProjectsManagement() {
     try {
       let imagePath = editingProject.image;
 
-      // Upload image first if there's a pending file
+      // Upload image FIRST if there's a pending file
       if (pendingImageFile) {
         const formData = new FormData();
         formData.append('file', pendingImageFile);
@@ -82,7 +82,7 @@ export default function ProjectsManagement() {
           imagePath = uploadData.path;
         } else {
           const error = await uploadRes.json();
-          alert(`Image upload failed: ${error.error}`);
+          alert(`Image upload failed: ${error.error}. Save without image?`);
           setSaving(false);
           return;
         }
@@ -91,7 +91,7 @@ export default function ProjectsManagement() {
       const isNew = !initialProjects.find(p => p.id === editingProject.id);
       const method = isNew ? 'POST' : 'PUT';
 
-      // Parse tech stack from input string
+      // Now save project with complete data including image path
       const projectToSave = {
         ...editingProject,
         image: imagePath,
@@ -104,21 +104,24 @@ export default function ProjectsManagement() {
         body: JSON.stringify(projectToSave),
       });
 
-      if (res.ok) {
-        if (isNew) {
-          setProjects([...projects, projectToSave]);
-        } else {
-          setProjects(projects.map(p => p.id === editingProject.id ? projectToSave : p));
-        }
-        setIsModalOpen(false);
-        setEditingProject(null);
-        setPendingImageFile(null);
-        setImagePreview(null);
-        alert('Saved! Changes committed to GitHub. Deployment will start shortly.');
-      } else {
+      if (!res.ok) {
         const error = await res.json();
         alert(`Failed to save: ${error.error}`);
+        setSaving(false);
+        return;
       }
+
+      // Update local state
+      if (isNew) {
+        setProjects([...projects, projectToSave]);
+      } else {
+        setProjects(projects.map(p => p.id === editingProject.id ? projectToSave : p));
+      }
+      setIsModalOpen(false);
+      setEditingProject(null);
+      setPendingImageFile(null);
+      setImagePreview(null);
+      alert('Saved! Changes committed to GitHub. Deployment will start shortly.');
     } catch (error) {
       alert('Error saving project');
     } finally {

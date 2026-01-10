@@ -22,11 +22,13 @@ function parseExperiencesFile(content: string): Experience[] {
   
   let jsonStr = match[1];
   
-  // Handle apostrophes and quotes carefully
-  // First, protect string content by finding all string values
-  const stringPattern = /'([^'\\]*(\\.[^'\\]*)*)'/g;
+  // IMPORTANT: Extract strings FIRST before removing comments
+  // Otherwise URLs like 'https://...' will be truncated
   const strings: string[] = [];
   let index = 0;
+  
+  // Match both single and double quoted strings (with proper escape handling)
+  const stringPattern = /(['"])(?:\\.|(?!\1)[^\\\r\n])*\1/g;
   
   // Extract all strings and replace them with placeholders
   jsonStr = jsonStr.replace(stringPattern, (match) => {
@@ -34,18 +36,28 @@ function parseExperiencesFile(content: string): Experience[] {
     return `__STRING_${index++}__`;
   });
   
-  // Remove inline comments (// ...)
+  // NOW remove inline comments (after strings are protected)
   jsonStr = jsonStr.replace(/\/\/[^\n]*/g, '');
   
   // Remove trailing commas
   jsonStr = jsonStr.replace(/,(\s*[}\]])/g, '$1');
   
+  // Add quotes around property names (id: → "id":)
+  jsonStr = jsonStr.replace(/(\w+):/g, '"$1":');
+  
   // Restore strings with double quotes
   index = 0;
   jsonStr = jsonStr.replace(/__STRING_(\d+)__/g, () => {
     const str = strings[index++];
-    // Convert single quotes to double quotes and escape internal quotes
-    return str.replace(/^'|'$/g, '"').replace(/\\'/g, "'").replace(/(?<!\\)"/g, '\\"');
+    const quote = str[0];
+    const content = str.slice(1, -1);
+    
+    // If it was single-quoted, convert to double quotes and handle escapes
+    if (quote === "'") {
+      return '"' + content.replace(/\\'/g, "'").replace(/"/g, '\\"') + '"';
+    }
+    // If already double-quoted, keep as is
+    return str;
   });
   
   try {
@@ -59,8 +71,7 @@ function parseExperiencesFile(content: string): Experience[] {
 // Helper to reconstruct TypeScript file from experiences array
 function buildExperiencesFile(experiences: Experience[]): string {
   const experiencesStr = JSON.stringify(experiences, null, 2)
-    .replace(/"([^"]+)":/g, '$1:') // Remove quotes from object keys
-    .replace(/"/g, "'"); // Replace all double quotes with single quotes
+    .replace(/"(\w+)":/g, '$1:'); // Remove quotes from object keys only
   
   return `import type { Experience } from '../types';
 

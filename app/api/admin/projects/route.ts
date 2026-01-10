@@ -20,11 +20,13 @@ function parseProjectsFile(content: string): Project[] {
   
   let jsonStr = match[1];
   
-  // Handle apostrophes and quotes carefully
-  // First, protect string content by finding all string values
-  const stringPattern = /'([^'\\]*(\\.[^'\\]*)*)'/g;
+  // IMPORTANT: Extract strings FIRST before removing comments
+  // Otherwise URLs like 'https://...' will be truncated
   const strings: string[] = [];
   let index = 0;
+  
+  // Match both single and double quoted strings (with proper escape handling)
+  const stringPattern = /(['"])(?:\\.|(?!\1)[^\\\r\n])*\1/g;
   
   // Extract all strings and replace them with placeholders
   jsonStr = jsonStr.replace(stringPattern, (match) => {
@@ -32,33 +34,44 @@ function parseProjectsFile(content: string): Project[] {
     return `__STRING_${index++}__`;
   });
   
-  // Remove inline comments (// ...)
+  // NOW remove inline comments (after strings are protected)
   jsonStr = jsonStr.replace(/\/\/[^\n]*/g, '');
   
   // Remove trailing commas
   jsonStr = jsonStr.replace(/,(\s*[}\]])/g, '$1');
   
+  // Add quotes around property names (id: → "id":)
+  jsonStr = jsonStr.replace(/(\w+):/g, '"$1":');
+  
   // Restore strings with double quotes
   index = 0;
   jsonStr = jsonStr.replace(/__STRING_(\d+)__/g, () => {
     const str = strings[index++];
-    // Convert single quotes to double quotes and escape internal quotes
-    return str.replace(/^'|'$/g, '"').replace(/\\'/g, "'").replace(/(?<!\\)"/g, '\\"');
+    const quote = str[0];
+    const content = str.slice(1, -1);
+    
+    // If it was single-quoted, convert to double quotes and handle escapes
+    if (quote === "'") {
+      return '"' + content.replace(/\\'/g, "'").replace(/"/g, '\\"') + '"';
+    }
+    // If already double-quoted, keep as is
+    return str;
   });
   
   try {
     return JSON.parse(jsonStr);
   } catch (error) {
     console.error('Failed to parse JSON:', jsonStr);
-    throw new Error('Failed to parse projects file');
+    console.error('Parse error details:', error);
+    console.error('Original content:', content.substring(0, 500));
+    throw new Error(`Failed to parse projects file: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 
 // Helper to reconstruct TypeScript file from projects array
 function buildProjectsFile(projects: Project[]): string {
   const projectsStr = JSON.stringify(projects, null, 2)
-    .replace(/"([^"]+)":/g, '$1:') // Remove quotes from object keys
-    .replace(/"/g, "'"); // Replace all double quotes with single quotes
+    .replace(/"(\w+)":/g, '$1:'); // Remove quotes from object keys only
   
   return `import type { Project } from '../types';
 
