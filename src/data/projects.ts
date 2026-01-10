@@ -107,7 +107,7 @@ export const projects: Project[] = [
   {
     id: 'proj-8',
     title: 'Alien Runner Game',
-    description: 'A simple runner game built in Python using Pygame, featuring an alien navigating Earth's obstacles. Inspired by Chrome's Dino game.',
+    description: "A simple runner game built in Python using Pygame, featuring an alien navigating Earth's obstacles. Inspired by Chrome's Dino game.",
     tech: [
       'Python',
       'Pygame'
