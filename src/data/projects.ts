@@ -160,7 +160,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1768790012208",
-    title: "Event Registration site",
+    title: "MonRobot 2026 Registration site",
     description: "A registration website for the 2026 MonRobot robot challenge event, complete with team management + registration, admin page.",
     tech: [
       "MERN stack",
