@@ -158,4 +158,4 @@ export const projects: Project[] = [
       demo: "https://www.nyxedu.org/",
       image: "/nyx.webp"
     }
-  ]
+  ];
