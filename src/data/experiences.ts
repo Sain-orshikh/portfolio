@@ -25,7 +25,6 @@ export const experiences: Experience[] = [
     role: "Web Developer",
     company: "Mongol Aspiration International School",
     period: "2024",
-    type: "school",
     description: "Lead developer for the school's official website, building core features and infrastructure from scratch.",
     achievements: [
       "Built homepage, navbar, footer, and admin panel for school website",
@@ -33,11 +32,11 @@ export const experiences: Experience[] = [
       "Established foundation for ongoing development and future features"
     ],
     tech: [
-      "Next.js",
       "TypeScript",
-      "Vercel",
+      "Cpanel",
       "Cloudinary"
     ],
+    type: "school",
     link: "https://www.facebook.com/MongolAspiration"
   },
   {
