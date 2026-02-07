@@ -81,7 +81,6 @@ export const experiences: Experience[] = [
     role: "Software Engineer Intern",
     company: "Misheel Orshikh LLC",
     period: "Summer 2023",
-    type: "unpaid",
     description: "First professional internship experience, working on IoT dashboard for electric meter monitoring.",
     achievements: [
       "Worked on web dashboard for electric meter data visualization",
@@ -90,9 +89,9 @@ export const experiences: Experience[] = [
     ],
     tech: [
       "Javascript",
-      "Web Dashboard",
       "IoT"
     ],
+    type: "unpaid",
     link: "https://gersmart.mn/"
   }
 ];
