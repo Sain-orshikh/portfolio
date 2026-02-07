@@ -107,13 +107,12 @@ export const projects: Project[] = [
   {
     id: "proj-2",
     title: "Ug-Center Gym Website",
-    description: "Modern gym website with complex gradient UIs, integrated payment system, and time slot management for class bookings. Built during internship at Erxes Inc.",
+    description: "Modern gym website with complex gradient UIs, integrated payment system, and time slot management for class bookings. ",
     tech: [
       "GraphQL",
-      "Next.js",
-      "Erxes",
-      "Payment Integration",
-      "Booking System"
+      "TypeScript",
+      "ErxesAPI",
+      "Qpay"
     ],
     repo: "",
     demo: "https://ug-center.vercel.app/",
