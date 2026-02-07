@@ -44,7 +44,6 @@ export const experiences: Experience[] = [
     role: "Full Stack Developer",
     company: "Study Simple Club (MAIS)",
     period: "2024",
-    type: "school",
     description: "Transformed a no-code Notion website into a modern, scalable web application.",
     achievements: [
       "Migrated entire platform from Notion to Next.js TypeScript application",
@@ -52,11 +51,11 @@ export const experiences: Experience[] = [
       "Deployed and managed production environment on Vercel"
     ],
     tech: [
-      "Next.js",
       "TypeScript",
-      "Migration",
-      "Spotify API"
+      "SpotifyAPI",
+      "Resend"
     ],
+    type: "school",
     link: "https://www.studysimple.org"
   },
   {
