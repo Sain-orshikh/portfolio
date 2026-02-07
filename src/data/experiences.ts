@@ -63,7 +63,6 @@ export const experiences: Experience[] = [
     role: "Web Developer",
     company: "Passion Project Club (MAIS)",
     period: "2024",
-    type: "school",
     description: "Built a complete web application from the ground up for a school club.",
     achievements: [
       "Designed and implemented full-stack architecture",
@@ -71,11 +70,10 @@ export const experiences: Experience[] = [
       "Managed deployment and production environment"
     ],
     tech: [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Full Stack"
+      "MongoDB",
+      "Typescript"
     ],
+    type: "school",
     link: "https://github.com/Sain-orshikh/PP_web"
   },
   {
