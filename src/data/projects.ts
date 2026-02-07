@@ -59,9 +59,7 @@ export const projects: Project[] = [
     tech: [
       "MongoDB",
       "Javascript",
-      "Rest API",
-      "Authentication",
-      "Real-time"
+      "Rest API"
     ],
     repo: "https://github.com/Sain-orshikh/twitter-clone",
     demo: "",
