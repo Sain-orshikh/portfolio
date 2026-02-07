@@ -46,8 +46,6 @@ export const projects: Project[] = [
     tech: [
       "Python",
       "Django",
-      "HTML",
-      "CSS",
       "JavaScript"
     ],
     repo: "https://github.com/Sain-orshikh/RPS",
