@@ -72,8 +72,7 @@ export const projects: Project[] = [
     tech: [
       "Next.js",
       "TypeScript",
-      "CMS",
-      "Migration"
+      "Resend"
     ],
     repo: "https://github.com/Sain-orshikh/study-simple-web",
     demo: "https://www.studysimple.org/",
