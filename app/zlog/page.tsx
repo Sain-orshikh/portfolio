@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { FolderKanban, Briefcase, LogOut } from 'lucide-react';
+import { FolderKanban, Briefcase, LogOut, BookOpen } from 'lucide-react';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -12,6 +12,13 @@ export default function AdminDashboard() {
   };
 
   const cards = [
+    {
+      title: 'Homepage Intro',
+      description: 'Edit your homepage introductory text',
+      icon: BookOpen,
+      path: '/zlog/intro',
+      color: 'teal',
+    },
     {
       title: 'Projects',
       description: 'Manage your portfolio projects',
