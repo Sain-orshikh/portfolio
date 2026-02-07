@@ -1,8 +1,8 @@
 export const introText = {
-  title: 'I\'m a high school senior at Mongol Aspiration International School passionate about building increasingly complex and challenging web applications.',
+  title: "I'm a high school senior at Mongol Aspiration International School, passionate about exploring all fields of computer science.",
   paragraphs: [
-    'Currently, I\'m taking a break from web development to focus on my studies, while honing my design skills on the weekends. In the past, I\'ve had the opportunity to develop software across a variety of settings—from large corporations and start-ups to school organizations.',
-    'In my spare time, I\'m usually enjoying my last year of high school with friends, binge-watching anime and TV shows, playing basketball, or diving into video games.',
+    "At the moment, I'm taking a break from web development to focus on my studies and other fields of computer science. In the past, I've had the opportunity to work as a web developer across a variety of settings, from mid-sized corporations and start-ups to school organizations.",
+    "In my spare time, I'm usually enjoying my last year of high school with friends or working on new and interesting project ideas, mostly on weekends."
   ],
-  learning: 'Currently exploring advanced React patterns, backend development with Node.js, and UI/UX design principles to create more intuitive and accessible web applications.',
+  learning: "Currently, I'm working on finishing my school's official website before my leave and learning the basics of AI through a small project, like a Flappy Bird AI"
 };
