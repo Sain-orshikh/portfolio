@@ -4,13 +4,11 @@ export const projects: Project[] = [
   {
     id: "proj-10",
     title: "Cost Tracker App",
-    description: "A personal cost tracker app built for travel expense management. Designed for self-use to log and analyze spending during trips.",
+    description: "A personal cost tracker app built for travel expense management. Designed for self-use to log and analyze spending during my trips.",
     tech: [
       "MongoDB",
       "Express",
-      "React",
-      "Node.js",
-      "Full-Stack"
+      "React"
     ],
     repo: "https://github.com/Sain-orshikh/cost-tracker",
     demo: "https://zlog-costs.vercel.app/",
