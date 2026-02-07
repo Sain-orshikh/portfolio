@@ -81,13 +81,11 @@ export const projects: Project[] = [
   {
     id: "proj-4",
     title: "MAIS Official Website",
-    description: "Official website for Mongol Aspiration International School. Built homepage, navigation, footer, admin panel, and about section. Modern, accessible design with content management capabilities.",
+    description: "Official website for Mongol Aspiration International School. Built with both the admin side and user side functionalities.",
     tech: [
-      "Next.js",
       "TypeScript",
-      "Tailwind CSS",
-      "Admin Panel",
-      "Cloudinary"
+      "Cloudinary",
+      "Cpanel"
     ],
     repo: "",
     demo: "https://mongolaspiration.com/",
