@@ -94,13 +94,11 @@ export const projects: Project[] = [
   {
     id: "proj-3",
     title: "APU CRM Integration",
-    description: "Enterprise CRM solution integrating forms and questionnaires with Erxes backend plugin system. Streamlined data collection and management for business operations.",
+    description: "Enterprise CRM solution integrating forms and questionnaires with Erxes backend plugin system. Configured data collection and management for CRM operations.",
     tech: [
       "GraphQL",
-      "Next.js",
-      "Erxes",
-      "CRM",
-      "Form Builder"
+      "TypeScript",
+      "ErxesAPI"
     ],
     repo: "",
     demo: "https://apu-crm.vercel.app/",
