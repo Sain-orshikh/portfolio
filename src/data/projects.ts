@@ -136,9 +136,9 @@ export const projects: Project[] = [
     title: "MonRobot 2026 Registration site",
     description: "A registration website for the 2026 MonRobot robot challenge event, complete with team management + registration, admin page.",
     tech: [
-      "MERN stack",
+      "TypeScript",
       "Cpanel",
-      "Render"
+      "MongoDB"
     ],
     repo: "",
     demo: "https://robot-challenge.com/",
