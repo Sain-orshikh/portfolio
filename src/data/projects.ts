@@ -21,8 +21,7 @@ export const projects: Project[] = [
     tech: [
       "Vite",
       "CMS",
-      "MongoDB",
-      "Vercel"
+      "MongoDB"
     ],
     repo: "https://github.com/Sain-orshikh/portfolio",
     demo: "https://pp-web-nu.vercel.app/",
