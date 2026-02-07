@@ -2,19 +2,6 @@ import type { Project } from '../types';
 
 export const projects: Project[] = [
   {
-    id: "proj-1768064407188",
-    title: "2D Physics Engine",
-    description: "I'm currently building a physics engine from scratch using python and pygame, though, I'm still far from finishing it, so stay tuned and follow my github.",
-    tech: [
-      "Python",
-      "Pygame",
-      "Physics Engine"
-    ],
-    repo: "",
-    demo: "",
-    image: "/coming-soon-1768065544454.jpg"
-  },
-  {
     id: "proj-10",
     title: "Cost Tracker App",
     description: "A personal cost tracker app built for travel expense management. Designed for self-use to log and analyze spending during trips.",
