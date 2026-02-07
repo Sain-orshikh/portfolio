@@ -121,12 +121,11 @@ export const projects: Project[] = [
   {
     id: "proj-1",
     title: "Student Notes Platform",
-    description: "A collaborative platform built with schoolmates to showcase and share student-made notes across different subjects. Features organized content, search functionality, and easy navigation.",
+    description: "A collaborative platform built with schoolmates to showcase and share student-made notes across different subjects.",
     tech: [
-      "Next.js",
       "TypeScript",
-      "Tailwind CSS",
-      "Vercel"
+      "Resend",
+      "MongoDB"
     ],
     repo: "https://github.com/Sain-orshikh/nyxedu",
     demo: "https://www.nyxedu.org/",
