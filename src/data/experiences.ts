@@ -43,7 +43,7 @@ export const experiences: Experience[] = [
     id: "exp-3",
     role: "Full Stack Developer",
     company: "Study Simple Club (MAIS)",
-    period: "2024",
+    period: "2025",
     description: "Transformed a no-code Notion website into a modern, scalable web application.",
     achievements: [
       "Migrated entire platform from Notion to Next.js TypeScript application",
