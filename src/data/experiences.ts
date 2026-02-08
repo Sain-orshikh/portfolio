@@ -5,7 +5,7 @@ export const experiences: Experience[] = [
     id: "exp-1",
     role: "Frontend Engineer Intern",
     company: "Erxes Inc",
-    period: "Summer 2024",
+    period: "Summer 2025",
     description: "Worked on client web applications, integrating complex systems and building production-ready interfaces for real businesses.",
     achievements: [
       "Built CRM integration for APU company, connecting forms and questionnaires to Erxes backend plugin system",
