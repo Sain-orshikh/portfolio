@@ -24,7 +24,7 @@ export const experiences: Experience[] = [
     id: "exp-2",
     role: "Web Developer",
     company: "Mongol Aspiration International School",
-    period: "2024",
+    period: "2025",
     description: "Lead developer for the school's official website, building core features and infrastructure from scratch.",
     achievements: [
       "Built homepage, navbar, footer, and admin panel for school website",
