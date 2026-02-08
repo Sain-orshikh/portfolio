@@ -143,5 +143,18 @@ export const projects: Project[] = [
     repo: "",
     demo: "https://robot-challenge.com/",
     image: "/monrobot-1768790156109.webp"
+  },
+  {
+    id: "proj-1770565534631",
+    title: "FlappyBirdML",
+    description: "A simple NEAT flappy bird AI project. Mostly built for learning experience with basic perceptron neural network.",
+    tech: [
+      "Python",
+      "Pygame",
+      "NEAT"
+    ],
+    repo: "https://github.com/Sain-orshikh/flappybirdML",
+    demo: "",
+    image: "/screenshot--345--1770565770403.png"
   }
 ];
