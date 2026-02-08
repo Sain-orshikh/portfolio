@@ -62,7 +62,7 @@ export const experiences: Experience[] = [
     id: "exp-4",
     role: "Web Developer",
     company: "Passion Project Club (MAIS)",
-    period: "2024",
+    period: "2025",
     description: "Built a complete web application from the ground up for a school club.",
     achievements: [
       "Designed and implemented full-stack architecture",
