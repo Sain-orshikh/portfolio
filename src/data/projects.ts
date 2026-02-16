@@ -156,5 +156,18 @@ export const projects: Project[] = [
     repo: "https://github.com/Sain-orshikh/flappybirdML",
     demo: "",
     image: "/screenshot--345--1770565770403.png"
+  },
+  {
+    id: "proj-1771208591385",
+    title: "Handwritten Digits ML",
+    description: "A very crude and simple \"AI\" built using pytorch, with pygame as the interface.",
+    tech: [
+      "Python",
+      "Pytorch",
+      "Pygame"
+    ],
+    repo: "https://github.com/Sain-orshikh/handwritten_digits_ML",
+    demo: "",
+    image: "/handwrittendigitml-1771208676002.webp"
   }
 ];
