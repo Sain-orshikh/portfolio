@@ -160,7 +160,7 @@ export const projects: Project[] = [
   {
     id: "proj-1771208591385",
     title: "Handwritten Digits ML",
-    description: "A very crude and simple \"AI\" built using pytorch, with pygame as the interface.",
+    description: "A very crude and simple \"AI\" built using pytorch, with pygame as the interface. The model works based on CNN.",
     tech: [
       "Python",
       "Pytorch",
