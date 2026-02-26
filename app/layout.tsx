@@ -1,5 +1,6 @@
 import './globals.css'
 import React from 'react'
+import Analytics from "@vercel/analytics"
 
 export const metadata = {
   title: 'Sain-Orshikh Nyambayar',
@@ -10,6 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>{children}</body>
+      <Analytics />
     </html>
   )
 }
