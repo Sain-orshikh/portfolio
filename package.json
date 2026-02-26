@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.6.1",
     "framer-motion": "10.12.6",
     "iron-session": "^8.0.4",
     "jotai": "2.0.0",
