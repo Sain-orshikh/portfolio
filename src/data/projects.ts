@@ -169,5 +169,17 @@ export const projects: Project[] = [
     repo: "https://github.com/Sain-orshikh/handwritten_digits_ML",
     demo: "",
     image: "/handwrittendigitml-1771208676002.webp"
+  },
+  {
+    id: "proj-1773250412859",
+    title: "CIFAR10",
+    description: "An image classification machine learning project trained on the cifar10 dataset.",
+    tech: [
+      "Python",
+      "TensorFlow"
+    ],
+    repo: "https://github.com/Sain-orshikh/CIFAR10",
+    demo: "",
+    image: "/cofar10-1773250574828.webp"
   }
 ];
