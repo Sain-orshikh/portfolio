@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { FolderKanban, Briefcase, LogOut, BookOpen } from 'lucide-react';
+import { FolderKanban, Briefcase, LogOut, BookOpen, Cake } from 'lucide-react';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -32,6 +32,13 @@ export default function AdminDashboard() {
       icon: Briefcase,
       path: '/zlog/experience',
       color: 'cyan',
+    },
+    {
+      title: 'Birthday Configuration',
+      description: 'Configure the surprise birthday page settings',
+      icon: Cake,
+      path: '/zlog/birthday-config',
+      color: 'teal',
     },
   ];
 
