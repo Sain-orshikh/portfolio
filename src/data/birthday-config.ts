@@ -1,5 +1,5 @@
 export const birthdayConfig = {
-  friendName: "ALEX",
-  oldVersion: "21.0",
-  newVersion: "22.0"
+  friendName: "MANLAI",
+  oldVersion: "17.0",
+  newVersion: "18.0"
 };
