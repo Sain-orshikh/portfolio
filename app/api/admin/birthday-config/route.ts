@@ -77,7 +77,11 @@ export async function GET() {
     const content = github.decodeContent(file.content);
     const birthdayConfig = parseBirthdayConfigFile(content);
 
-    return NextResponse.json({ birthdayConfig, sha: file.sha });
+    return NextResponse.json({ birthdayConfig, sha: file.sha }, {
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message || 'Failed to fetch birthday config' },

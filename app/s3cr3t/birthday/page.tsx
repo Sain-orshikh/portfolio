@@ -1,14 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import { birthdayConfig } from "@/src/data/birthday-config";
 
 const BirthdayPage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showToast, setShowToast] = useState(true);
-  const [config, setConfig] = useState({
-    friendName: "ALEX",
-    oldVersion: "21.0",
-    newVersion: "22.0",
-  });
+  const [config] = useState(birthdayConfig);
 
   // Sound effect generator using Web Audio API
   const audioContext = useRef<AudioContext | null>(null);
@@ -120,23 +117,6 @@ const BirthdayPage = () => {
       osc.stop(now + 0.5);
     });
   };
-
-  useEffect(() => {
-    // Fetch the birthday configuration from the API
-    const fetchConfig = async () => {
-      try {
-        const response = await fetch('/api/admin/birthday-config');
-        if (response.ok) {
-          const data = await response.json();
-          setConfig(data.birthdayConfig);
-        }
-      } catch (error) {
-        console.error('Failed to fetch birthday config, using defaults:', error);
-      }
-    };
-    
-    fetchConfig();
-  }, []);
 
   // Separate effect for clock - runs once and never clears
   useEffect(() => {
