@@ -87,15 +87,41 @@ const myCSPathStyles = `
     color: #c5c6c7;
     line-height: 1.6;
   }
+
+  .back-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #1a1a1a;
+    color: #66FCF1;
+    border: 1px solid #45A29E;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Share Tech Mono, monospace;
+    font-size: 12px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .back-btn:hover {
+    background: #45A29E;
+    color: #0B0C10;
+  }
+
+  @media (min-width: 641px) {
+    .back-btn {
+      display: none;
+    }
+  }
 `;
 
-export const MyCSPath = () => {
+export const MyCSPath = ({ onBack }: { onBack?: () => void }) => {
   return (
     <>
       <style>{myCSPathStyles}</style>
       <div className="mypath-wrapper"></div>
       <div className="mypath-overlay"></div>
       <div className="mypath-container">
+        {onBack && <button className="back-btn" onClick={onBack}>← Back</button>}
         <header>
           <h1 className="mypath-h1">My Computer Science Journey</h1>
           <div className="mypath-subtitle">From learning to code to building production-ready infrastructure</div>

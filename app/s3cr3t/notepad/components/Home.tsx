@@ -93,6 +93,8 @@ const homeStyles = `
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    background: none;
+    font-family: inherit;
   }
 
   .home-card::before {
@@ -135,7 +137,7 @@ const homeStyles = `
   }
 `;
 
-export const Home = () => {
+export const Home = ({ onNavigate }: { onNavigate: (view: string) => void }) => {
   return (
     <>
       <style>{homeStyles}</style>
@@ -150,20 +152,20 @@ export const Home = () => {
         </header>
 
         <div className="home-grid">
-          <div className="home-card">
+          <button className="home-card" onClick={() => onNavigate('csguide')}>
             <h2 className="home-card-title">01. The CS Roadmap</h2>
             <p className="home-card-desc">Discover the tiered extracurricular strategy top global universities look for, from foundational math to real-world impact.</p>
-          </div>
+          </button>
 
-          <div className="home-card">
+          <button className="home-card" onClick={() => onNavigate('mycspath')}>
             <h2 className="home-card-title">02. My Journey</h2>
             <p className="home-card-desc">View my path from learning basic code to building production-ready digital infrastructure for national organizations.</p>
-          </div>
+          </button>
 
-          <div className="home-card">
+          <button className="home-card" onClick={() => onNavigate('internguide')}>
             <h2 className="home-card-title">03. Internship Guide</h2>
             <p className="home-card-desc">Actionable steps for high schoolers to network, cold email, and land highly competitive technical internships.</p>
-          </div>
+          </button>
         </div>
       </div>
     </>

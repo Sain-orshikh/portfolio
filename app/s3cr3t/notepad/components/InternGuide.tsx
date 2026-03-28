@@ -88,15 +88,41 @@ const internGuideStyles = `
     font-style: italic;
     color: #e0e2e4;
   }
+
+  .back-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #1a1a1a;
+    color: #66FCF1;
+    border: 1px solid #45A29E;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Share Tech Mono, monospace;
+    font-size: 12px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .back-btn:hover {
+    background: #45A29E;
+    color: #0B0C10;
+  }
+
+  @media (min-width: 641px) {
+    .back-btn {
+      display: none;
+    }
+  }
 `;
 
-export const InternGuide = () => {
+export const InternGuide = ({ onBack }: { onBack?: () => void }) => {
   return (
     <>
       <style>{internGuideStyles}</style>
       <div className="intern-wrapper"></div>
       <div className="intern-overlay"></div>
       <div className="intern-container">
+        {onBack && <button className="back-btn" onClick={onBack}>← Back</button>}
         <header>
           <h1 className="intern-h1">Landing a High School Internship</h1>
           <div className="intern-subtitle">Actionable Steps for Students to Gain Real-World Experience</div>

@@ -97,15 +97,41 @@ const csGuideStyles = `
     font-style: italic;
     color: #e0e2e4;
   }
+
+  .back-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #1a1a1a;
+    color: #66FCF1;
+    border: 1px solid #45A29E;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Share Tech Mono, monospace;
+    font-size: 12px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .back-btn:hover {
+    background: #45A29E;
+    color: #0B0C10;
+  }
+
+  @media (min-width: 641px) {
+    .back-btn {
+      display: none;
+    }
+  }
 `;
 
-export const CSGuide = () => {
+export const CSGuide = ({ onBack }: { onBack?: () => void }) => {
   return (
     <>
       <style>{csGuideStyles}</style>
       <div className="cs-guide-wrapper"></div>
       <div className="cs-guide-overlay"></div>
       <div className="cs-guide-container">
+        {onBack && <button className="back-btn" onClick={onBack}>← Back</button>}
         <header>
           <h1 className="cs-guide-h1">Building a Competitive CS Profile</h1>
           <div className="cs-guide-subtitle">A Roadmap for High School Students Aiming for Top Global Universities</div>

@@ -24,14 +24,14 @@ const NotepadPage = () => {
   const renderView = () => {
     switch (currentView) {
       case "csguide":
-        return <CSGuide />;
+        return <CSGuide onBack={() => setCurrentView("home")} />;
       case "mycspath":
-        return <MyCSPath />;
+        return <MyCSPath onBack={() => setCurrentView("home")} />;
       case "internguide":
-        return <InternGuide />;
+        return <InternGuide onBack={() => setCurrentView("home")} />;
       case "home":
       default:
-        return <Home />;
+        return <Home onNavigate={setCurrentView} />;
     }
   };
 
@@ -58,11 +58,20 @@ const NotepadPage = () => {
           transform: translateX(-50%);
           z-index: 1000;
           display: flex;
+          flex-wrap: wrap;
           gap: 10px;
           background: rgba(0, 0, 0, 0.8);
           padding: 15px 20px;
           border-radius: 8px;
           border: 1px solid #45A29E;
+          max-width: 90vw;
+          justify-content: center;
+        }
+
+        @media (max-width: 640px) {
+          .notepad-nav {
+            display: none;
+          }
         }
 
         .nav-btn {
@@ -75,6 +84,7 @@ const NotepadPage = () => {
           font-family: Share Tech Mono, monospace;
           font-size: 14px;
           transition: all 0.3s ease;
+          white-space: nowrap;
         }
 
         .nav-btn:hover,
@@ -82,6 +92,31 @@ const NotepadPage = () => {
           background: #45A29E;
           color: #0B0C10;
           box-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+        }
+
+        @media (max-width: 640px) {
+          .notepad-nav {
+            padding: 10px 12px;
+            gap: 6px;
+            bottom: 10px;
+          }
+
+          .nav-btn {
+            padding: 6px 10px;
+            font-size: 11px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .notepad-nav {
+            padding: 8px 10px;
+            gap: 4px;
+          }
+
+          .nav-btn {
+            padding: 5px 8px;
+            font-size: 10px;
+          }
         }
       `}</style>
 
