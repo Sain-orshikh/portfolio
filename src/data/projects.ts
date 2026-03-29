@@ -181,5 +181,18 @@ export const projects: Project[] = [
     repo: "https://github.com/Sain-orshikh/CIFAR10",
     demo: "",
     image: "/cofar10-1773250574828.webp"
+  },
+  {
+    id: "proj-1774763958916",
+    title: "FaceDetectionML",
+    description: "A bounding box face detection ML built from scratch. Plugged in pre-trained VGG16 for the main engine, and added bounding box mechanic.",
+    tech: [
+      "Python",
+      "VGG16",
+      "Tensorflow"
+    ],
+    repo: "https://github.com/Sain-orshikh/FaceDetectionML",
+    demo: "",
+    image: "/screenshot--364--1774764080230.webp"
   }
 ];
