@@ -194,5 +194,18 @@ export const projects: Project[] = [
     repo: "https://github.com/Sain-orshikh/FaceDetectionML",
     demo: "",
     image: "/screenshot--364--1774764080230.webp"
+  },
+  {
+    id: "proj-1776776153788",
+    title: "Emotion classifier (Alya edition)",
+    description: "A fine tuned model that classifies between a few emotions based on video capture, and displays the russian anime character Alya in a corresponding mood. (Due to shared hosting on render predictions might take long)",
+    tech: [
+      "Python",
+      "Pytorch",
+      "ResNet50"
+    ],
+    repo: "https://github.com/Sain-orshikh/alya",
+    demo: "https://tribute-to-alya.vercel.app/",
+    image: "/merged-screenshot-1776776345836.png"
   }
 ];
