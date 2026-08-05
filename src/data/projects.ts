@@ -88,7 +88,7 @@ export const projects: Project[] = [
       "Cpanel"
     ],
     repo: "",
-    demo: "https://mongolaspiration.com/",
+    demo: "https://mongolaspiration.edu.mn/",
     image: "/mais.webp"
   },
   {
