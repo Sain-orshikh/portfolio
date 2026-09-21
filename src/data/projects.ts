@@ -207,5 +207,18 @@ export const projects: Project[] = [
     repo: "https://github.com/Sain-orshikh/alya",
     demo: "https://tribute-to-alya.vercel.app/",
     image: "/merged-screenshot-1776776345836.png"
+  },
+  {
+    id: "proj-1790002550877",
+    title: "Anima",
+    description: "Exploration of 3d model face tracking (commonly used in vtuber softwares) using the three-vrm library. (My own model was used in this project)",
+    tech: [
+      "Three-VRM",
+      "Vroidstudio",
+      "Nextjs"
+    ],
+    repo: "https://github.com/Sain-orshikh/anima/tree/main",
+    demo: "https://anima-zlog.vercel.app/",
+    image: "/screenshot-2026-09-22-000158-1790002975737.webp"
   }
 ];
