@@ -2,6 +2,26 @@ import type { Experience } from '../types';
 
 export const experiences: Experience[] = [
   {
+    id: "exp-1785899267028",
+    role: "AI Engineer Intern",
+    company: "Misheel Orshikh LLC",
+    period: "Summer 2026",
+    description: "Worked on the MonusAI project, building data analysis, anomaly detection, gemini integration.",
+    achievements: [
+      "Built future water usage forecasting model",
+      "Built anomalous water usage detection system",
+      "Gemini chat integration",
+      "Admin dashboard"
+    ],
+    tech: [
+      "Python",
+      "Pandas",
+      "Gemini API"
+    ],
+    type: "paid",
+    link: "https://gersmart.mn/"
+  },
+  {
     id: "exp-1",
     role: "Frontend Engineer Intern",
     company: "Erxes Inc",
@@ -92,26 +112,6 @@ export const experiences: Experience[] = [
       "IoT"
     ],
     type: "unpaid",
-    link: "https://gersmart.mn/"
-  },
-  {
-    id: "exp-1785899267028",
-    role: "AI Engineer Intern",
-    company: "Misheel Orshikh LLC",
-    period: "Summer 2026",
-    description: "Worked on the MonusAI project, building data analysis, anomaly detection, gemini integration.",
-    achievements: [
-      "Built future water usage forecasting model",
-      "Built anomalous water usage detection system",
-      "Gemini chat integration",
-      "Admin dashboard"
-    ],
-    tech: [
-      "Python",
-      "Pandas",
-      "Gemini API"
-    ],
-    type: "paid",
     link: "https://gersmart.mn/"
   }
 ];
