@@ -60,25 +60,6 @@ export const experiences: Experience[] = [
     link: "https://www.facebook.com/MongolAspiration"
   },
   {
-    id: "exp-3",
-    role: "Full Stack Developer",
-    company: "Study Simple Club (MAIS)",
-    period: "2025",
-    description: "Transformed a no-code Notion website into a modern, scalable web application.",
-    achievements: [
-      "Migrated entire platform from Notion to Next.js TypeScript application",
-      "Improved performance, maintainability, and user experience",
-      "Deployed and managed production environment on Vercel"
-    ],
-    tech: [
-      "TypeScript",
-      "SpotifyAPI",
-      "Resend"
-    ],
-    type: "school",
-    link: "https://www.studysimple.org"
-  },
-  {
     id: "exp-5",
     role: "Software Engineer Intern",
     company: "Misheel Orshikh LLC",
