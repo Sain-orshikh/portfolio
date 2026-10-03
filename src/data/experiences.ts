@@ -79,24 +79,6 @@ export const experiences: Experience[] = [
     link: "https://www.studysimple.org"
   },
   {
-    id: "exp-4",
-    role: "Web Developer",
-    company: "Passion Project Club (MAIS)",
-    period: "2025",
-    description: "Built a complete web application from the ground up for a school club.",
-    achievements: [
-      "Designed and implemented full-stack architecture",
-      "Created user-friendly interface with modern design principles",
-      "Managed deployment and production environment"
-    ],
-    tech: [
-      "MongoDB",
-      "Typescript"
-    ],
-    type: "school",
-    link: "https://github.com/Sain-orshikh/PP_web"
-  },
-  {
     id: "exp-5",
     role: "Software Engineer Intern",
     company: "Misheel Orshikh LLC",
