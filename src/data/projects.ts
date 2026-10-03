@@ -220,5 +220,18 @@ export const projects: Project[] = [
     repo: "https://github.com/Sain-orshikh/anima/tree/main",
     demo: "https://anima-zlog.vercel.app/",
     image: "/screenshot-2026-09-22-000158-1790002975737.webp"
+  },
+  {
+    id: "proj-1791032971748",
+    title: "3D Renderer",
+    description: "A simple 3d rendering project written in python. File parser is built for the example .obj file. Clipping removes the polygon face, doesn't return new face. ",
+    tech: [
+      "Python",
+      "Pygame",
+      "3D Graphics"
+    ],
+    repo: "https://github.com/Sain-orshikh/3drenderer",
+    demo: "",
+    image: "/2026-10-03-22-06-1791033243025.webp"
   }
 ];
