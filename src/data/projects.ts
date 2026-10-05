@@ -233,5 +233,18 @@ export const projects: Project[] = [
     repo: "https://github.com/Sain-orshikh/3drenderer",
     demo: "",
     image: "/2026-10-03-22-06-1791033243025.webp"
+  },
+  {
+    id: "proj-1791219451441",
+    title: "Voxel Engine",
+    description: "A minecraft style voxel engine built from scratch. Uses Ambient Occlusion shader. (Demo photo isn't from mc, its from this project)",
+    tech: [
+      "Pygame",
+      "OpenGL",
+      "Python"
+    ],
+    repo: "https://github.com/Sain-orshikh/voxel-engine",
+    demo: "",
+    image: "/2026-10-06-01-51-1791219791618.webp"
   }
 ];
