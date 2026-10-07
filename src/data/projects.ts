@@ -244,7 +244,7 @@ export const projects: Project[] = [
       "Python"
     ],
     repo: "https://github.com/Sain-orshikh/voxel-engine",
-    demo: "",
+    demo: "https://haphollows.itch.io/minecraft-voxel",
     image: "/2026-10-06-01-51-1791219791618.webp"
   }
 ];
