@@ -67,7 +67,7 @@ export default function Home() {
           <footer className="mt-24 pt-12 border-t border-slate-800/60">
             <p className="text-sm text-slate-400 text-center">
                 Designed & built with <span className="text-red-500">♥</span> using Next.js, TypeScript & Tailwind CSS.<br />
-                Made by Sain-Orshikh.N, 12th grade student & web enthusiast.
+                Made by Sain-Orshikh.N, freshman at KAIST & web enthusiast.
             </p>
           </footer>
         </main>
