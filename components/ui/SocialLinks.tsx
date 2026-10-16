@@ -1,11 +1,12 @@
 import React from 'react';
+import { profile } from '@/src/data/profile';
 import { Github, Linkedin, Instagram, Facebook } from 'lucide-react';
 import { SiDiscord } from 'react-icons/si';
 import { motion } from 'framer-motion';
 
 const socials = [
-  { icon: Github, href: 'https://github.com/Sain-orshikh', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://www.linkedin.com/in/sain-orshikh-nyambayar-127a58352/', label: 'LinkedIn' },
+  { icon: Github, href: profile.github, label: 'GitHub' },
+  { icon: Linkedin, href: profile.linkedin, label: 'LinkedIn' },
   { icon: SiDiscord, href: 'https://discordapp.com/users/779665822271537162', label: 'Discord' },
   { icon: Instagram, href: 'https://www.instagram.com/sainorshikh/', label: 'Instagram' },
   { icon: Facebook, href: 'https://www.facebook.com/sainorshikh.nyamayar/', label: 'Facebook' },
@@ -23,7 +24,7 @@ const SocialLinks: React.FC = () => {
           aria-label={social.label}
             className="group text-slate-400 hover:text-white dark:text-slate-400 dark:hover:text-white transition-colors"
           whileTap={{ scale: 0.95 }}
-          initial={{ opacity: 0, y: 10 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
         >

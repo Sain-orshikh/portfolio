@@ -8,6 +8,8 @@ const CursorGradient: React.FC = () => {
   const currentPos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    if (!window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)').matches) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
     };

@@ -6,9 +6,9 @@ import { ArrowUpRight } from 'lucide-react';
 const Experience: React.FC = () => {
   return (
     <section id="experience" className="mb-24 scroll-mt-24">
-  <h2 className="block lg:hidden text-[14px] font-bold tracking-widest uppercase text-white mb-8">Experience</h2>
+  <h2 className="block text-[14px] font-bold tracking-widest uppercase text-white mb-8">Experience</h2>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={false}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 0.6 }}
@@ -17,7 +17,7 @@ const Experience: React.FC = () => {
           {experiences.map((exp, index) => (
             <motion.article
               key={exp.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}

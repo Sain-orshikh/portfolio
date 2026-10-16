@@ -1,7 +1,10 @@
 'use client';
 import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { projectSlug } from '@/lib/projects';
 import { projects } from '../src/data/projects';
-import { ArrowUpRight, Github, ExternalLink, ChevronDown } from 'lucide-react';
+import { Github, ExternalLink, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Projects: React.FC = () => {
@@ -12,9 +15,9 @@ const Projects: React.FC = () => {
 
   return (
     <section id="projects" className="mb-24 scroll-mt-24">
-  <h2 className="block lg:hidden text-[14px] font-bold tracking-widest uppercase text-white mb-8">Projects</h2>
+  <h2 className="block text-[14px] font-bold tracking-widest uppercase text-white mb-8">Projects</h2>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={false}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 0.3 }}
@@ -23,19 +26,12 @@ const Projects: React.FC = () => {
           {displayedProjects.map((project, index) => (
             <motion.article
               key={project.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="group relative cursor-pointer"
+              className="group relative"
             >
-              <a
-                href={project.demo || project.repo || '#'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-                tabIndex={-1}
-              >
                 <div className="relative overflow-hidden rounded-xl border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm transition-all duration-500 hover:border-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/5 hover:bg-slate-700/20 flex flex-col sm:flex-row gap-4 p-4">
                   {/* Gradient overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-slate-600/0 to-slate-700/0 group-hover:from-slate-600/10 group-hover:to-slate-700/10 transition-all duration-500 rounded-xl"></div>
@@ -43,23 +39,12 @@ const Projects: React.FC = () => {
                   {/* Image on Left - Separate Rectangle */}
                   {project.image && (
                     <div className="relative w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden border-2 border-slate-700/50 group-hover:border-teal-400/50 transition-all duration-300 bg-slate-800/50">
-                      <img
+                      <Image
                         src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        onError={(e) => {
-                          console.error(`Failed to load image: ${project.image} for project: ${project.title}`);
-                          console.error(`Full URL attempted: ${e.currentTarget.src}`);
-                          e.currentTarget.style.display = 'none';
-                          const parent = e.currentTarget.parentElement;
-                          if (parent && !parent.querySelector('.error-msg')) {
-                            const errorDiv = document.createElement('div');
-                            errorDiv.className = 'error-msg absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs p-2 text-center';
-                            errorDiv.innerHTML = `<p>Image not found</p><p class="text-[10px] mt-1">${project.image}</p>`;
-                            parent.appendChild(errorDiv);
-                          }
-                        }}
+                        alt={`${project.title} screenshot`}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 192px"
+                        className="object-cover"
                       />
                     </div>
                   )}
@@ -68,12 +53,13 @@ const Projects: React.FC = () => {
                   <div className="relative z-10 flex-1 flex flex-col">
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <h3 className="text-base font-semibold text-slate-100 group-hover:text-teal-300 transition-colors flex-1">
-                        {project.title}
+                        <Link href={`/projects/${projectSlug(project)}`}>{project.title}</Link>
                       </h3>
                       <div className="flex gap-2 shrink-0">
                         {project.repo && (
                           <a
                             href={project.repo}
+                            aria-label={`Source code for ${project.title}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="p-1.5 rounded-lg bg-slate-800/50 text-slate-400 hover:text-teal-300 hover:bg-slate-700/50 transition-all"
@@ -86,6 +72,7 @@ const Projects: React.FC = () => {
                         {project.demo && (
                           <a
                             href={project.demo}
+                            aria-label={`Live demo of ${project.title}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="p-1.5 rounded-lg bg-slate-800/50 text-slate-400 hover:text-teal-300 hover:bg-slate-700/50 transition-all"
@@ -114,15 +101,16 @@ const Projects: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </a>
             </motion.article>
           ))}
         </div>
 
+        <p className="mt-8 text-teal-300"><Link href="/projects" className="underline underline-offset-4">Browse all {projects.length} projects</Link></p>
+
         {/* Show More Button */}
         {hasMoreProjects && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}

@@ -20,16 +20,16 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
       {/* Mobile Header */}
       <div className="lg:hidden w-full mt-10">
         <div className="flex flex-col items-start px-6 py-4 gap-2">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-2 text-slate-100">Sain-Orshikh.N</h1>
-          <h2 className="text-xl sm:text-2xl font-semibold text-slate-300 mb-3">Web Developer</h2>
-          <p className="text-slate-400 max-w-sm leading-relaxed text-[17px]">Building modern web applications with React, TypeScript, and Next.js</p>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-2 text-slate-100">Sain-Orshikh Nyambayar</h1>
+          <h2 className="text-xl sm:text-2xl font-semibold text-slate-300 mb-3">Developer & KAIST Student</h2>
+          <p className="text-slate-400 max-w-sm leading-relaxed text-[17px]">Known online as sainorshikh. Exploring web development, machine learning, and 3D graphics.</p>
           <div className="pt-2"><SocialLinks /></div>
         </div>
       </div>
 
       {/* Desktop Sidebar */}
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
+        initial={false}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
         className="hidden lg:block lg:fixed lg:top-0 lg:left-0 lg:w-1/2 lg:h-screen"
@@ -38,18 +38,18 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
           {/* Header Section */}
           <div>
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
               <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-slate-100">
-                Sain-Orshikh.N
+                Sain-Orshikh Nyambayar
               </h1>
               <h2 className="text-xl sm:text-2xl font-semibold text-slate-300 mb-6">
-                Web Developer
+                Developer & KAIST Student
               </h2>
               <p className="text-slate-400 max-w-sm leading-relaxed text-[17px]">
-                Building modern web applications with React, TypeScript, and Next.js
+                Known online as sainorshikh. Exploring web development, machine learning, and 3D graphics.
               </p>
             </motion.div>
 
@@ -61,11 +61,12 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
                   return (
                     <motion.li
                       key={item.id}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={false}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 + index * 0.1 }}
                     >
-                      <button
+                      <a
+                        href={`#${item.id}`}
                         onClick={() => onNavigate(item.id)}
                         className={`group flex items-center py-3 transition-all ${
                           isActive ? 'text-slate-100' : 'text-slate-400'
@@ -85,7 +86,7 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
                         >
                           {item.label}
                         </span>
-                      </button>
+                      </a>
                     </motion.li>
                   );
                 })}
@@ -95,7 +96,7 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
 
           {/* Social Links at Bottom */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
           >

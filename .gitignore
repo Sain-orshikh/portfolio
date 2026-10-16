@@ -18,6 +18,7 @@ Thumbs.db
 
 # Env
 .env*
+!.env.example
 
 # IDE
 .vscode/
