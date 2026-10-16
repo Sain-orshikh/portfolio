@@ -52,7 +52,7 @@ export default function Home() {
     <div className="min-h-screen relative">
       {/* Cursor Gradient Effect */}
       <CursorGradient />
-      
+
       <div className="lg:flex relative z-10">
         {/* Fixed Left Sidebar */}
         <FixedSidebar activeSection={activeSection} onNavigate={handleNavigate} />

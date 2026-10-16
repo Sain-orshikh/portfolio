@@ -27,8 +27,7 @@ const About: React.FC = () => {
 
         <div className="pt-6 space-y-4">
           <div>
-            <h3 className="block text-[14px] font-bold tracking-widest uppercase text-white mb-8">What I'm learning</h3>
-            <h3 className="hidden lg:block text-[17px] font-semibold text-slate-100 mb-3 uppercase tracking-wider">What I'm learning</h3>
+            <h3 className="text-[14px] lg:text-[17px] font-semibold text-slate-100 mb-8 lg:mb-3 uppercase tracking-wider">What I'm learning</h3>
             <p className="text-slate-400 text-[17px]">
               {introText.learning}
             </p>
