@@ -22,7 +22,7 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
         <div className="flex flex-col items-start px-6 py-4 gap-2">
           <h1 className="text-4xl sm:text-5xl font-bold mb-2 text-slate-100">Sain-Orshikh Nyambayar</h1>
           <h2 className="text-xl sm:text-2xl font-semibold text-slate-300 mb-3">Developer & KAIST Student</h2>
-          <p className="text-slate-400 max-w-sm leading-relaxed text-[17px]">Known online as sainorshikh. Exploring web development, machine learning, and 3D graphics.</p>
+          <p className="text-slate-400 max-w-sm leading-relaxed text-[17px]">Exploring web development, machine learning, and 3D graphics.</p>
           <div className="pt-2"><SocialLinks /></div>
         </div>
       </div>
