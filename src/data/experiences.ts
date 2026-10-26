@@ -19,7 +19,7 @@ export const experiences: Experience[] = [
       "Gemini API"
     ],
     type: "paid",
-    link: "https://gersmart.mn/"
+    link: "https://www.facebook.com/gersmartapp/"
   },
   {
     id: "exp-1",
@@ -75,6 +75,6 @@ export const experiences: Experience[] = [
       "IoT"
     ],
     type: "unpaid",
-    link: "https://gersmart.mn/"
+    link: "https://www.facebook.com/gersmartapp/"
   }
 ];
