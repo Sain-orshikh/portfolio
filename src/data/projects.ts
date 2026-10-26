@@ -2,7 +2,7 @@ import type { Project } from '../types';
 
 export const projects: Project[] = [
   {
-    id: "proj-10",
+    id: "proj-9",
     title: "Cost Tracker App",
     description: "A personal cost tracker app built for travel expense management. Designed for self-use to log and analyze spending during my trips.",
     tech: [
@@ -13,19 +13,6 @@ export const projects: Project[] = [
     repo: "https://github.com/Sain-orshikh/cost-tracker",
     demo: "https://zlog-costs.vercel.app/",
     image: "/costtracker.webp"
-  },
-  {
-    id: "proj-9",
-    title: "Passion Project club website",
-    description: "The official club for my high school club, Passion Project. Built to showcase our projects and share resources with schoolmates. Unfortunately, the club is now inactive, and the project was never fully completed.",
-    tech: [
-      "Vite",
-      "CMS",
-      "MongoDB"
-    ],
-    repo: "https://github.com/Sain-orshikh/portfolio",
-    demo: "https://pp-web-nu.vercel.app/",
-    image: "/ppweb.webp"
   },
   {
     id: "proj-8",
@@ -75,7 +62,7 @@ export const projects: Project[] = [
       "Resend"
     ],
     repo: "https://github.com/Sain-orshikh/study-simple-web",
-    demo: "https://www.studysimple.org/",
+    demo: "https://study-simple.vercel.app/",
     image: "/studysimple.webp"
   },
   {
@@ -128,7 +115,7 @@ export const projects: Project[] = [
       "MongoDB"
     ],
     repo: "https://github.com/Sain-orshikh/nyxedu",
-    demo: "https://www.nyxedu.org/",
+    demo: "https://nyxedu.vercel.app/",
     image: "/nyx.webp"
   },
   {
