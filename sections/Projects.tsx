@@ -6,16 +6,27 @@ import { projectSlug } from '@/lib/projects';
 import { projects } from '../src/data/projects';
 import { Github, ExternalLink, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
+import ProjectFilters from '@/components/ui/ProjectFilters';
+import { projectCategoryLabels, type ProjectFilter } from '@/src/data/project-categories';
 
 const Projects: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
+  const [category, setCategory] = useState<ProjectFilter>('all');
   const reversedProjects = [...projects].reverse(); // Show latest first
-  const displayedProjects = showAll ? reversedProjects : reversedProjects.slice(0, 5);
-  const hasMoreProjects = projects.length > 5;
+  const filteredProjects = reversedProjects.filter(project => category === 'all' || project.category === category);
+  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 5);
+  const hasMoreProjects = filteredProjects.length > 5;
 
   return (
     <section id="projects" className="mb-24 scroll-mt-24">
   <h2 className="block text-[14px] font-bold tracking-widest uppercase text-white mb-8">Projects</h2>
+      <ProjectFilters projects={projects} selected={category} onChange={filter => {
+        setCategory(filter);
+        setShowAll(false);
+      }} />
+      <p role="status" className="mb-5 text-sm text-slate-400">
+        Showing {displayedProjects.length} of {filteredProjects.length} projects
+      </p>
       <motion.div
         initial={false}
         whileInView={{ opacity: 1, y: 0 }}
@@ -85,6 +96,7 @@ const Projects: React.FC = () => {
                       </div>
                     </div>
 
+                    <p className="mb-2 text-xs font-medium text-slate-400">{projectCategoryLabels[project.category]}</p>
                     <p className="text-sm text-slate-300 leading-relaxed mb-3 flex-1">
                       {project.description}
                     </p>
@@ -121,7 +133,7 @@ const Projects: React.FC = () => {
               className="group flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-800/50 bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm text-slate-300 hover:text-teal-300 hover:border-teal-500/30 transition-all duration-300"
             >
               <span className="font-medium">
-                {showAll ? 'Show Less' : `Show More Projects (${projects.length - 5})`}
+                {showAll ? 'Show Less' : `Show More Projects (${filteredProjects.length - 5})`}
               </span>
               <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`} />
             </button>

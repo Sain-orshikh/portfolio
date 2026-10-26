@@ -1,7 +1,10 @@
+import type { ProjectCategory } from './data/project-categories';
+
 export type Project = {
   id: string;
   title: string;
   description: string;
+  category: ProjectCategory;
   tech: string[];
   repo?: string;
   demo?: string;

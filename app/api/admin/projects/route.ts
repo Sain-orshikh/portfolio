@@ -2,11 +2,13 @@ import { NextResponse } from 'next/server';
 import { GitHubClient } from '@/lib/github';
 import { z } from 'zod';
 import type { Project } from '@/src/types';
+import { projectCategoryIds } from '@/src/data/project-categories';
 
 const ProjectSchema = z.object({
   id: z.string(),
   title: z.string().min(1),
   description: z.string().min(1),
+  category: z.enum(projectCategoryIds),
   tech: z.array(z.string()),
   repo: z.string().optional(),
   demo: z.string().optional(),

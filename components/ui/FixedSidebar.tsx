@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import SocialLinks from './SocialLinks';
+import ResumeDownload from './ResumeDownload';
 
 interface FixedSidebarProps {
   activeSection: string;
@@ -24,6 +25,7 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
           <h2 className="text-xl sm:text-2xl font-semibold text-slate-300 mb-3">Developer & KAIST Student</h2>
           <p className="text-slate-400 max-w-sm leading-relaxed text-[17px]">Exploring web development, machine learning, and 3D graphics.</p>
           <div className="pt-2"><SocialLinks /></div>
+          <div className="pt-4"><ResumeDownload /></div>
         </div>
       </div>
 
@@ -51,6 +53,7 @@ const FixedSidebar: React.FC<FixedSidebarProps> = ({ activeSection, onNavigate }
               <p className="text-slate-400 max-w-sm leading-relaxed text-[17px]">
                 Known online as sainorshikh. Exploring web development, machine learning, and 3D graphics.
               </p>
+              <div className="mt-6"><ResumeDownload /></div>
             </motion.div>
 
             {/* Navigation */}

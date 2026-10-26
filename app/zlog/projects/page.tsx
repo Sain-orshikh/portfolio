@@ -4,6 +4,7 @@ import { ArrowLeft, Plus, Edit2, Trash2, Eye, ExternalLink, Github, Upload } fro
 import { useRouter } from 'next/navigation';
 import { projects as initialProjects } from '@/src/data/projects';
 import type { Project } from '@/src/types';
+import { projectCategoryIds, projectCategoryLabels, type ProjectCategory } from '@/src/data/project-categories';
 
 export default function ProjectsManagement() {
   const router = useRouter();
@@ -22,6 +23,7 @@ export default function ProjectsManagement() {
       id: `proj-${Date.now()}`,
       title: '',
       description: '',
+      category: 'web',
       tech: [],
       repo: '',
       demo: '',
@@ -229,6 +231,7 @@ export default function ProjectsManagement() {
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
                   <p className="text-slate-400 text-sm mb-3">{project.description}</p>
+                  <p className="text-teal-300 text-xs mb-3">{projectCategoryLabels[project.category]}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-3">
                     {project.tech.map((tech: string, i: number) => (
@@ -338,6 +341,20 @@ export default function ProjectsManagement() {
                       className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-teal-500 resize-none"
                       placeholder="Brief description of the project"
                     />
+                  </div>
+
+                  <div>
+                    <label htmlFor="project-category" className="block text-sm font-medium text-slate-300 mb-2">
+                      Project Type *
+                    </label>
+                    <select
+                      id="project-category"
+                      value={editingProject.category}
+                      onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value as ProjectCategory })}
+                      className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-teal-500"
+                    >
+                      {projectCategoryIds.map(category => <option key={category} value={category}>{projectCategoryLabels[category]}</option>)}
+                    </select>
                   </div>
 
                   {/* Tech Stack */}
@@ -506,6 +523,7 @@ export default function ProjectsManagement() {
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-white mb-2">{previewProject.title}</h3>
                   <p className="text-slate-400 text-sm mb-3">{previewProject.description}</p>
+                  <p className="text-teal-300 text-xs mb-3">{projectCategoryLabels[previewProject.category]}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-3">
                     {previewProject.tech.map((tech: string, i: number) => (

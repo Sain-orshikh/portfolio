@@ -3,6 +3,7 @@ import type { Project } from '../types';
 export const projects: Project[] = [
   {
     id: "proj-9",
+    category: "web",
     title: "Cost Tracker App",
     description: "A personal cost tracker app built for travel expense management. Designed for self-use to log and analyze spending during my trips.",
     tech: [
@@ -16,6 +17,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-8",
+    category: "3d-games",
     title: "Alien Runner Game",
     description: "A simple runner game built in Python using Pygame, featuring an alien navigating Earth's obstacles. Inspired by Chrome's Dino game.",
     tech: [
@@ -28,6 +30,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-7",
+    category: "web",
     title: "Rock Paper Scissors (Django)",
     description: "My first web development project that sparked my interest in web development. Simple game built with Django to learn the fundamentals of backend and frontend integration.",
     tech: [
@@ -41,6 +44,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-6",
+    category: "web",
     title: "Twitter Clone",
     description: "Full-featured social media platform inspired by Twitter. Implemented real-time updates, user authentication, posts, likes, and follows. Built to learn modern web development patterns.",
     tech: [
@@ -54,6 +58,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-5",
+    category: "web",
     title: "Study Simple Platform",
     description: "Transformed a Notion-based no-code website into a production-ready Next.js application. Improved performance, maintainability, and user experience for the school club.",
     tech: [
@@ -67,6 +72,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-4",
+    category: "web",
     title: "MAIS Official Website",
     description: "Official website for Mongol Aspiration International School. Built with both the admin side and user side functionalities.",
     tech: [
@@ -80,6 +86,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-3",
+    category: "web",
     title: "APU CRM Integration",
     description: "Enterprise CRM solution integrating forms and questionnaires with Erxes backend plugin system. Configured data collection and management for CRM operations.",
     tech: [
@@ -93,6 +100,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-2",
+    category: "web",
     title: "Ug-Center Gym Website",
     description: "Modern gym website with complex gradient UIs, integrated payment system, and time slot management for class bookings. ",
     tech: [
@@ -107,6 +115,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1",
+    category: "web",
     title: "Student Notes Platform",
     description: "A collaborative platform built with schoolmates to showcase and share student-made notes across different subjects.",
     tech: [
@@ -120,6 +129,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1768790012208",
+    category: "web",
     title: "MonRobot 2026 Registration site",
     description: "A registration website for the 2026 MonRobot robot challenge event, complete with team management + registration, admin page.",
     tech: [
@@ -133,6 +143,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1770565534631",
+    category: "ai",
     title: "FlappyBirdML",
     description: "A simple NEAT flappy bird AI project. Mostly built for learning experience with basic perceptron neural network.",
     tech: [
@@ -146,6 +157,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1771208591385",
+    category: "ai",
     title: "Handwritten Digits ML",
     description: "A very crude and simple \"AI\" built using pytorch, with pygame as the interface. The model works based on CNN. (Trained by MNIST set)",
     tech: [
@@ -159,6 +171,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1773250412859",
+    category: "ai",
     title: "CIFAR10",
     description: "An image classification machine learning project trained on the cifar10 dataset.",
     tech: [
@@ -171,6 +184,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1774763958916",
+    category: "ai",
     title: "FaceDetectionML",
     description: "A bounding box face detection ML built from scratch. Plugged in pre-trained VGG16 for the main engine, and added bounding box mechanic.",
     tech: [
@@ -184,6 +198,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1776776153788",
+    category: "ai",
     title: "Emotion classifier (Alya edition)",
     description: "A fine tuned model that classifies between a few emotions based on video capture, and displays the russian anime character Alya in a corresponding mood. (Due to shared hosting on render predictions might take long)",
     tech: [
@@ -197,6 +212,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1790002550877",
+    category: "3d-games",
     title: "Anima",
     description: "Exploration of 3d model face tracking (commonly used in vtuber softwares) using the three-vrm library. (My own model was used in this project)",
     tech: [
@@ -210,6 +226,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1791032971748",
+    category: "3d-games",
     title: "3D Renderer",
     description: "A simple 3d rendering project written in python. File parser is built for the example .obj file. Clipping removes the polygon face, doesn't return new face. ",
     tech: [
@@ -223,6 +240,7 @@ export const projects: Project[] = [
   },
   {
     id: "proj-1791219451441",
+    category: "3d-games",
     title: "Voxel Engine",
     description: "A minecraft style voxel engine built from scratch. Uses Ambient Occlusion shader. (Demo photo isn't from mc, its from this project)",
     tech: [
