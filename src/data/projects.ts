@@ -251,5 +251,18 @@ export const projects: Project[] = [
     repo: "https://github.com/Sain-orshikh/voxel-engine",
     demo: "https://haphollows.itch.io/minecraft-voxel",
     image: "/2026-10-06-01-51-1791219791618.webp"
+  },
+  {
+    id: "proj-1794149239414",
+    title: "Havoc Chess",
+    description: "A chess app with custom gamemode (chaos) with warped moves, classic chess of course, and a chess bot that runs in the browser. Fully functional with match-making, badges, leaderboard etc.",
+    category: "ai",
+    tech: [
+      "NextJS",
+      "WebAssembly"
+    ],
+    repo: "https://github.com/Sain-orshikh/chaos-chess",
+    demo: "https://havoc-chess.vercel.app/",
+    image: "/havoc-1794149569787.webp"
   }
 ];
