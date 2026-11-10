@@ -256,10 +256,11 @@ export const projects: Project[] = [
     id: "proj-1794149239414",
     title: "Havoc Chess",
     description: "A chess app with custom gamemode (chaos) with warped moves, classic chess of course, and a chess bot that runs in the browser. Fully functional with match-making, badges, leaderboard etc.",
-    category: "ai",
+    category: "3d-games",
     tech: [
       "NextJS",
-      "WebAssembly"
+      "Chess Engine",
+      "Multiplayer"
     ],
     repo: "https://github.com/Sain-orshikh/chaos-chess",
     demo: "https://havoc-chess.vercel.app/",
